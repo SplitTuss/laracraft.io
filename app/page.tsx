@@ -20,6 +20,14 @@ export default function Home() {
           <li>Gudda Morga</li>
         </ol>
 
+        <img
+          className=""
+          style={{ height: 'auto', width: 200 }}
+          src="/images/crochet/blanket/kawaii-rainbow-blanket-wip-amigo-front.jpeg"
+          alt="crochet blanket with rainbow pattern"
+        />
+
+
       </main>
       <footer className={styles.footer}>
         <a
