@@ -24,7 +24,14 @@ export default function Home() {
           className=""
           style={{ height: 'auto', width: 200 }}
           src="/images/crochet/blanket/kawaii-rainbow-blanket-wip-amigo-front.jpeg"
-          alt="crochet blanket with rainbow pattern"
+          alt="unfinished crochet blanket with rainbow pattern"
+        />
+
+<img
+          className=""
+          style={{ height: 'auto', width: 200 }}
+          src="/images/crochet/blanket/kawaii-rainbow-blanket-amigo-left-side.jpeg"
+          alt="finished crochet blanket with rainbow pattern"
         />
 
 
