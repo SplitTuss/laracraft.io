@@ -34,6 +34,17 @@ export default function Home() {
           alt="finished crochet blanket with rainbow pattern"
         />
 
+        <div className={styles.container}>
+          <div className={styles.cardWrap}>
+            <div className={styles.card}>
+              <div className={styles.cardBg}></div>
+              <div className={styles.cardInfo}>
+                <div>blanket</div>
+                <div>this is a blanket</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </main>
       <footer className={styles.footer}>
