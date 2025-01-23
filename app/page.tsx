@@ -35,7 +35,11 @@ export default function Home() {
           alt="finished crochet blanket with rainbow pattern"
         />
 
-        <FancyCard />
+        <FancyCard
+          title='Titel'
+          body='Inhalt'
+          imageUrl='/images/crochet/blanket/kawaii-rainbow-blanket-amigo-left-side.jpeg'
+        />
 
       </main>
       <footer className={styles.footer}>

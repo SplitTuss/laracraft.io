@@ -1,14 +1,17 @@
 import styles from "./styles.module.css";
 
-export default function FancyCard() {
+export default function FancyCard(props) {
   return (
     <div className={styles.container}>
       <div className={styles.cardWrap}>
         <div className={styles.card}>
-          <div className={styles.cardBg}>
+          <div
+            className={styles.cardBg}
+            style={{ background: `url(${props.imageUrl})` }}
+          >
             <div className={styles.cardInfo}>
-              <h1>blanket</h1>
-              <p>this is a blanket</p>
+              <h1>{props.title}</h1>
+              <p>{props.body}</p>
             </div>
           </div>
         </div>
@@ -16,4 +19,3 @@ export default function FancyCard() {
     </div>
   );
 };
-
