@@ -36,9 +36,15 @@ export default function Home() {
         />
 
         <FancyCard
-          title='Titel'
-          body='Inhalt'
+          title='my first blanket'
+          body='C2C kawaii rainbow blanket'
           imageUrl='/images/crochet/blanket/kawaii-rainbow-blanket-amigo-left-side.jpeg'
+        />
+
+        <FancyCard
+          title='potato'
+          body='green potato'
+          imageUrl='/images/crochet/amigurumi/green-potato-BS-face.jpeg'
         />
 
       </main>

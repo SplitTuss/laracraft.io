@@ -1,6 +1,9 @@
+import React from "react";
 import styles from "./styles.module.css";
 
 export default function FancyCard(props) {
+  const cardRef = React.cardRef
+
   return (
     <div className={styles.container}>
       <div className={styles.cardWrap}>
