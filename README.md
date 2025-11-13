@@ -18,8 +18,4 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deployment
-Push code to GitHub pages:
-
-```bash
-yarn deploy
-```
+Code is automagically deployed via [Vercel](https://vercel.com/)
