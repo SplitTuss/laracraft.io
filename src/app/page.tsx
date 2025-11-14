@@ -1,4 +1,4 @@
-import { Button } from '@/components/imported/Button';
+import { Button } from '@/components/shadcn/Button';
 import Image from 'next/image';
 
 export default function Home() {
