@@ -1,3 +1,7 @@
 export default function Signup() {
-  return <h1 className="flex justify-center">signup coming soon...</h1>;
+  return (
+    <>
+      <h1 className="flex justify-center text-2xl mt-4">signup coming soon...</h1>
+    </>
+  );
 }
