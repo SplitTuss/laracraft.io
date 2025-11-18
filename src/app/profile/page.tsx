@@ -1,11 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 
 export default function ProfilePage() {
-  const { signout } = useAuth();
+  const { session, signout } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('profile page', { session });
+    if (session === null) {
+      router.push('/signin');
+    }
+  }, [session, router]);
 
   const handleLogout = async () => {
     await signout();

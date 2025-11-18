@@ -3,7 +3,8 @@
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Signin() {
   const [email, setEmail] = useState('');
@@ -12,13 +13,20 @@ export default function Signin() {
   const [loading, setLoading] = useState(false);
 
   const { session, signin } = useAuth();
-  console.log({ session });
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('sign in', { session });
+    if (session !== null) {
+      router.push('/profile');
+    }
+  }, [session, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = await signin('lara.loos26.05@gmail.com', 'password123');
-    console.log('you have been logged in' + result);
+    console.log('you have been logged in', result);
   };
 
   return (

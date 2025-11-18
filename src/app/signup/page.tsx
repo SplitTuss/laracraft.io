@@ -3,7 +3,8 @@
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -12,7 +13,14 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
   const { session, signup } = useAuth();
-  console.log({ session });
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('sign up', { session });
+    if (session !== null) {
+      router.push('/profile');
+    }
+  }, [session, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
