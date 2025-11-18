@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <h1 className="flex justify-center text-2xl mt-4">homepage coming soon...</h1>
-      <Link href="/login">go to login</Link>
+      <Link href="/signin">go to signin</Link>
       <br></br>
       <Link href="/signup">go to signup</Link>
       <br></br>
