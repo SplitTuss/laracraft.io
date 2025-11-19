@@ -6,6 +6,7 @@ import { supabase } from './supabase-client';
 
 interface AuthContextType {
   session: Session | null;
+  loading: boolean;
   signup: (email: string, password: string) => Promise<AuthResponse>;
   signin: (email: string, password: string) => Promise<AuthTokenResponsePassword>;
   signout: () => Promise<void>;
@@ -17,6 +18,7 @@ const notReadyFunction = () => {
 
 const AuthContext = createContext<AuthContextType>({
   session: null,
+  loading: true,
   signup: notReadyFunction,
   signin: notReadyFunction,
   signout: notReadyFunction,
@@ -32,11 +34,13 @@ interface AuthContextProviderProps {
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const authListener = supabase.auth.onAuthStateChange((_, newSession) => {
       console.log('auth listener', { newSession });
       setSession(newSession);
+      setLoading(false);
     });
 
     return () => {
@@ -60,7 +64,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, signup, signout, signin }}>
+    <AuthContext.Provider value={{ session, loading, signup, signout, signin }}>
       {children}
     </AuthContext.Provider>
   );
