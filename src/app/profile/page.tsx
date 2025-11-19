@@ -23,10 +23,13 @@ export default function ProfilePage() {
   };
 
   return (
-    <h1 className="flex flex-col max-w-md justify-center text-2xl mt-4">
-      Profile page coming soon...
+    <div className="flex flex-col items-center text-2xl mt-4">
+      <h1>Profile page</h1>
+      <br></br>
+      <h2>welcome, {session?.user?.email}</h2>
       <Button onClick={handleLogout}>logout</Button>
+      <br></br>
       <Link href="/">go home!</Link>
-    </h1>
+    </div>
   );
 }

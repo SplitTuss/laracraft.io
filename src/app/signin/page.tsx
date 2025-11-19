@@ -1,15 +1,15 @@
 'use client';
 
-import { Button } from '@/components/shadcn/Button';
-import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/client-auth/authContext';
+import { Button } from '@/components/shadcn/Button';
+import { Input } from '@/components/shadcn/Input';
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { session, signin } = useAuth();
@@ -24,9 +24,11 @@ export default function Signin() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
-    const result = await signin('lara.loos26.05@gmail.com', 'password123');
-    console.log('you have been logged in', result);
+    const userData = await signin(email, password);
+    console.log('you have been logged in', userData);
+    setLoading(false);
   };
 
   return (
@@ -34,8 +36,18 @@ export default function Signin() {
       <form className="max-w-md" onSubmit={handleSubmit}>
         <h1>log in!</h1>
         <div className="flex flex-col py-4">
-          <input placeholder="email" className="bg-accent p-2 mb-4" type="email" />
-          <input placeholder="password" className="bg-accent p-2 mb-4" type="password" />
+          <Input
+            placeholder="email"
+            className="bg-accent p-2 mb-4"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="password"
+            className="bg-accent p-2 mb-4"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <Button type="submit" disabled={loading}>
             sign in
           </Button>
