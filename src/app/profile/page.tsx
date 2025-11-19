@@ -7,15 +7,15 @@ import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 
 export default function ProfilePage() {
-  const { session, signout } = useAuth();
+  const { session, loading, signout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     console.log('profile page', { session });
-    if (session === null) {
+    if (!loading && session === null) {
       router.push('/signin');
     }
-  }, [session, router]);
+  }, [session, loading, router]);
 
   const handleLogout = async () => {
     await signout();

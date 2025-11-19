@@ -12,15 +12,15 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { session, signup } = useAuth();
+  const { session, loading: authLoading, signup } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     console.log('sign up', { session });
-    if (session !== null) {
+    if (!authLoading && session !== null) {
       router.push('/profile');
     }
-  }, [session, router]);
+  }, [session, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

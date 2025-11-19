@@ -12,15 +12,15 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { session, signin } = useAuth();
+  const { session, loading: authLoading, signin } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     console.log('sign in', { session });
-    if (session !== null) {
+    if (!authLoading && session !== null) {
       router.push('/profile');
     }
-  }, [session, router]);
+  }, [session, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
