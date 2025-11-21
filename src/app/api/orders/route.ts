@@ -1,5 +1,25 @@
+import { supabase } from '@/server-auth/supabase-client';
+
 export async function GET(request: Request) {
-  console.log({ request });
+  const accessToken = request.headers.get('Authorization');
+
+  if (!accessToken) {
+    return new Response('unauthorized!', {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const result = await supabase.auth.getUser(accessToken);
+
+  if (result.error) {
+    return new Response(result.error.message, {
+      status: result.error.status,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  console.log(result.data);
 
   const data = [
     { id: 1, items: 7, total: 400 },

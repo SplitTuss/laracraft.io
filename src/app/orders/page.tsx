@@ -21,10 +21,14 @@ export default function Orders() {
   const handleLoadOrders = async () => {
     setLoading(true);
 
-    const response = await fetch('/api/orders');
+    const response = await fetch('/api/orders', {
+      headers: {
+        Authorization: session?.access_token ?? '',
+      },
+    });
+
     const data = await response.json();
     setOrders(data);
-
     setLoading(false);
   };
 
