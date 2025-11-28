@@ -24,12 +24,14 @@ export default function ProfilePage() {
 
   return (
     <div className="flex flex-col items-center text-2xl mt-4">
-      <h1>Profile page</h1>
+      <h1 className="text-2xl text-primary">Profile page</h1>
       <br></br>
-      <h2>welcome, {session?.user?.email}</h2>
+      <h2>Welcome, {session?.user?.email}</h2>
       <Button onClick={handleLogout}>logout</Button>
       <br></br>
-      <Link href="/">go home!</Link>
+      <Link href="/" className="underline">
+        go home!
+      </Link>
     </div>
   );
 }

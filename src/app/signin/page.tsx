@@ -34,7 +34,7 @@ export default function Signin() {
   return (
     <div className="flex justify-center text-2xl mt-4">
       <form className="max-w-md" onSubmit={handleSubmit}>
-        <h1>log in!</h1>
+        <h1 className="text-2xl text-primary flex justify-center">log in!</h1>
         <div className="flex flex-col py-4">
           <Input
             placeholder="email"

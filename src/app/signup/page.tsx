@@ -34,7 +34,7 @@ export default function Signup() {
   return (
     <div className="flex justify-center text-2xl mt-4">
       <form className="max-w-md" onSubmit={handleSubmit}>
-        <h1>sign up today!</h1>
+        <h1 className="text-2xl text-primary flex justify-center">sign up today!</h1>
         <div className="flex flex-col py-4">
           <Input
             placeholder="email"
@@ -52,9 +52,10 @@ export default function Signup() {
             sign up
           </Button>
         </div>
-        <p className="text-sm flex justify-center">
-          already have an account? <Link href="/signin"> go to signin</Link>
-        </p>
+        <p className="text-sm flex justify-center">already have an account?</p>
+        <Link href="/signin" className="text-sm flex justify-center">
+          go to signin
+        </Link>
       </form>
     </div>
   );

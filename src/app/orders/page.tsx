@@ -44,13 +44,16 @@ export default function Orders() {
   }
 
   return (
-    <div>
-      {orders.map((order) => (
-        <div key={order.id}>
-          items: {order.items}
-          total: {order.total}
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="text-2xl text-primary">orders</div>
+      <div>
+        {orders.map((order) => (
+          <div key={order.id}>
+            items: {order.items}
+            total: {order.total}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
