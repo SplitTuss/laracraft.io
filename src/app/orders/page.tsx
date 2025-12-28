@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/client-auth/authContext';
+import Header from '@/components/header';
 
 export default function Orders() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,8 +46,10 @@ export default function Orders() {
 
   return (
     <>
-      <div className="text-2xl text-primary">orders</div>
-      <div>
+      <Header />
+      <div className="flex flex-col items-center text-2xl mt-4">
+        <h1 className="text-2xl text-primary">orders</h1>
+        <br />
         {orders.map((order) => (
           <div key={order.id}>
             items: {order.items}

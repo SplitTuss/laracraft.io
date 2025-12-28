@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
+import Header from '@/components/header';
 
 export default function ProfilePage() {
   const { session, loading, signout } = useAuth();
@@ -23,15 +24,25 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="flex flex-col items-center text-2xl mt-4">
-      <h1 className="text-2xl text-primary">Profile page</h1>
-      <br></br>
-      <h2>Welcome, {session?.user?.email}</h2>
-      <Button onClick={handleLogout}>logout</Button>
-      <br></br>
-      <Link href="/" className="underline">
-        go home!
-      </Link>
-    </div>
+    <>
+      <Header />
+      <div className="flex flex-col items-center text-2xl mt-4">
+        <h1 className="text-2xl text-primary">Profile page</h1>
+        <br />
+        <h2>Welcome, {session?.user?.email}</h2>
+        <br />
+
+        <Link href="/orders" className="underline">
+          go to my orders
+        </Link>
+        <br />
+        <Link href="/" className="underline">
+          go home!
+        </Link>
+        <br />
+        <Button onClick={handleLogout}>logout</Button>
+        <br />
+      </div>
+    </>
   );
 }
