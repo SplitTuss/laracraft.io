@@ -1,20 +1,20 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
+import Header from '../components/header';
+import { SearchBar } from '../components/searchBar';
+import ProductCard from '@/components/productCard';
 
 export default function Home() {
+  const [searchInput, setSearchInput] = useState('');
+
   return (
-    <div className="">
-      <h1 className="flex justify-center text-2xl text-primary mt-4">welcome to laracraft.io</h1>
-      <div className="flex flex-col items-center mt-4 gap-2">
-        <Link href="/signin" className="underline hover:text-primary">
-          go to signin
-        </Link>
-        <Link href="/signup" className="underline hover:text-primary">
-          go to signup
-        </Link>
-        <Link href="/profile" className="underline hover:text-primary">
-          go to profile page
-        </Link>
+    <>
+      <Header />
+      <div className="mt-2">
+        <SearchBar onSearchChange={setSearchInput} />
       </div>
-    </div>
+      <ProductCard />
+    </>
   );
 }

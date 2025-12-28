@@ -52,9 +52,10 @@ export default function Signin() {
             sign in
           </Button>
         </div>
-        <p className="text-sm flex justify-center">
-          don`t have an account yet? <Link href="/signup">go to signup</Link>
-        </p>
+        <p className="text-sm flex justify-center">don`t have an account yet? </p>
+        <Link href="/signup" className="text-sm flex justify-center">
+          go to signup
+        </Link>
       </form>
     </div>
   );
