@@ -8,9 +8,9 @@ export default function Header() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/favicon.ico" alt="laracraft.io logo" className="col-span-1 w-20 h-20 rounded-lg" />
 
-      <div className="col-span-3 mt-6 text-xl sm:text-3xl text-center text-primary">
+      <Link href="/" className="col-span-3 mt-6 text-xl sm:text-3xl text-center text-primary">
         laracraft.io
-      </div>
+      </Link>
 
       <div className="col-span-1 flex flex-row flex-wrap justify-end gap-2 mt-7">
         <Button className="hover:cursor-pointer" size="icon-sm">
