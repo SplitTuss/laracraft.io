@@ -4,22 +4,26 @@ import { Button } from './shadcn/Button';
 
 export default function Header() {
   return (
-    <div className="bg-accent p-2">
-      <h1 className="flex justify-center text-2xl text-primary bg-accent">
-        welcome to laracraft.io
-      </h1>
-      <div className="flex flex-row gap-2 justify-end">
-        <Button className="hover:cursor-pointer">
-          <Link href="/profile" className="underline hover:text-primary">
+    <div className="grid grid-cols-5 bg-accent p-2">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/favicon.ico" alt="laracraft.io logo" className="col-span-1 w-20 h-20 rounded-lg" />
+
+      <div className="col-span-3 mt-6 text-xl sm:text-3xl text-center text-primary">
+        laracraft.io
+      </div>
+
+      <div className="col-span-1 flex flex-row flex-wrap justify-end gap-2 mt-7">
+        <Button className="hover:cursor-pointer" size="icon-sm">
+          <Link href="/profile" className="hover:text-primary">
             <UserIcon />
           </Link>
         </Button>
-        <Button className="hover:cursor-pointer">
-          <Link href="/orders" className="underline hover:text-primary">
+        <Button className="hover:cursor-pointer" size="icon-sm">
+          <Link href="/orders" className="hover:text-primary">
             <BookTextIcon />
           </Link>
         </Button>
-        <Button className="hover:cursor-pointer">
+        <Button className="hover:cursor-pointer" size="icon-sm">
           <ShoppingCartIcon />
         </Button>
       </div>
