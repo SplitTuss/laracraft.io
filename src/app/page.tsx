@@ -14,7 +14,9 @@ export default function Home() {
       <div className="mt-2">
         <SearchBar onSearchChange={setSearchInput} />
       </div>
-      <ProductCard />
+      <ul>
+        <ProductCard price={20} title="x" description="hallooooo" />
+      </ul>
     </>
   );
 }
