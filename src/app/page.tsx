@@ -15,12 +15,11 @@ export default function Home() {
         <SearchBar onSearchChange={setSearchInput} />
       </div>
       <ul>
-        <li>
-          <ProductCard price={25} title="x" description="hallooooo" />
-        </li>
-        <li>
-          <ProductCard price={20} title="y" description="hier" />
-        </li>
+        <ProductCard price={25} title="x" description="hallooooo" />
+
+        <ProductCard price={20} title="y" description="hier" />
+
+        <ProductCard price={15} title="z" description="sup" />
       </ul>
     </>
   );

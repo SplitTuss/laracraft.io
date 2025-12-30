@@ -10,7 +10,7 @@ interface ProductProps {
 
 export default function ProductCard({ title, price, description }: ProductProps) {
   return (
-    <li>
+    <li className="mb-2">
       <div className="flex flex-col items-center gap-4 border-2 rounded-xl border-accent">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
