@@ -9,6 +9,10 @@ import { PRODUCTS } from '@/components/products';
 export default function Home() {
   const [searchInput, setSearchInput] = useState('');
 
+  const filteredProducts = PRODUCTS.filter((product) =>
+    product.title.toLowerCase().includes(searchInput.toLowerCase()),
+  );
+
   return (
     <>
       <Header />
@@ -16,7 +20,7 @@ export default function Home() {
         <SearchBar onSearchChange={setSearchInput} />
       </div>
       <ul className="grid sm:grid-cols-5 grid-cols-2 m-2">
-        {PRODUCTS.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard
             key={product.title}
             imageUrl={product.imageUrl}
