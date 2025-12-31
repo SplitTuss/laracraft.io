@@ -4,7 +4,8 @@ import { useState, createContext, useContext, useEffect } from 'react';
 import type { Session, AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
 import { supabase } from './supabase-client';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://laracraft.io';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+if (!BASE_URL) throw new Error('NEXT_PUBLIC_BASE_URL is not set');
 
 interface AuthContextType {
   session: Session | null;
