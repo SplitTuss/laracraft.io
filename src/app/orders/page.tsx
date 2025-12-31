@@ -48,7 +48,7 @@ export default function Orders() {
     <>
       <Header />
       <div className="flex flex-col items-center text-2xl mt-4">
-        <h1 className="text-2xl text-primary">orders</h1>
+        <h1 className="text-2xl text-primary">your orders</h1>
         <br />
         <ul>
           {orders.map((order) => (

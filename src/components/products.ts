@@ -15,14 +15,14 @@ export const PRODUCTS: ProductData[] = [
     description: 'crochet dog pillow made with chenille yarn',
   },
   {
-    imageUrl: 'https://s3.us-east-1.amazonaws.com/laracraft.io/crochetItems/GreenPotato.jpg',
+    imageUrl: 'https://s3.us-east-1.amazonaws.com/laracraft.io/crochetItems/GreenPotato2.jpg',
     imageAlt: 'Green Potato',
     title: 'Green Potato',
     price: 15,
     description: 'crochet potato made with chenille yarn',
   },
   {
-    imageUrl: 'https://s3.us-east-1.amazonaws.com/laracraft.io/crochetItems/YellowPotato.jpg',
+    imageUrl: 'https://s3.us-east-1.amazonaws.com/laracraft.io/crochetItems/YellowPotato2.jpg',
     imageAlt: 'Yellow Potato',
     title: 'Yellow Potato',
     price: 15,

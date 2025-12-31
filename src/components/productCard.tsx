@@ -30,10 +30,10 @@ export default function ProductCard({
         </div>
 
         <div className="flex flex-row mt-auto mb-2">
-          <Button size="icon-sm" className="">
+          <Button size="icon-sm" className="hover:cursor-pointer">
             <PlusIcon />
           </Button>
-          <div className="justify-end">{price}</div>
+          <div className="justify-end">${price}</div>
         </div>
       </div>
     </li>
