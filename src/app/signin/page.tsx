@@ -48,6 +48,11 @@ export default function Signin() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <Button>
+            <Link href="/forgotPassword" className="text-sm flex justify-center">
+              forgot password?
+            </Link>
+          </Button>
           <Button type="submit" disabled={loading}>
             sign in
           </Button>

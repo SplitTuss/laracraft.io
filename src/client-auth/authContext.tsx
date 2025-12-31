@@ -4,12 +4,15 @@ import { useState, createContext, useContext, useEffect } from 'react';
 import type { Session, AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
 import { supabase } from './supabase-client';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://laracraft.io';
+
 interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signup: (email: string, password: string) => Promise<AuthResponse>;
   signin: (email: string, password: string) => Promise<AuthTokenResponsePassword>;
   signout: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
 }
 
 const notReadyFunction = () => {
@@ -22,6 +25,7 @@ const AuthContext = createContext<AuthContextType>({
   signup: notReadyFunction,
   signin: notReadyFunction,
   signout: notReadyFunction,
+  forgotPassword: notReadyFunction,
 });
 
 export const useAuth = () => {
@@ -63,8 +67,15 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     await supabase.auth.signOut();
   };
 
+  //forgot password
+  const forgotPassword = async (email: string) => {
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${BASE_URL}/profile`,
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ session, loading, signup, signout, signin }}>
+    <AuthContext.Provider value={{ session, loading, signup, signout, signin, forgotPassword }}>
       {children}
     </AuthContext.Provider>
   );
