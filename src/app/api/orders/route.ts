@@ -22,7 +22,7 @@ export async function GET(request: Request) {
   console.log(result.data);
 
   const data = [
-    { id: 1, items: 7, total: 400 },
+    { id: 1, items: 7, total: 400, date: '02-13-2013' },
     { id: 2, items: 3, total: 250 },
   ];
 

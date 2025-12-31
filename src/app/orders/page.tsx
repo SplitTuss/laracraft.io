@@ -50,12 +50,15 @@ export default function Orders() {
       <div className="flex flex-col items-center text-2xl mt-4">
         <h1 className="text-2xl text-primary">orders</h1>
         <br />
-        {orders.map((order) => (
-          <div key={order.id}>
-            items: {order.items}
-            total: {order.total}
-          </div>
-        ))}
+        <ul>
+          {orders.map((order) => (
+            <li key={order.id} className="grid grid-cols-3">
+              <div className="col-span-1">items: {order.items}</div>
+              <div className="col-span-1">total: {order.total}</div>
+              <div className="col-span-1">date: {order.date}</div>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
