@@ -5,9 +5,28 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
 
+type OrderData = {
+  id: number;
+  created_at: string;
+  userId: string;
+  total: number;
+  products: Array<{
+    id: number;
+    quantity: number;
+    created_at: string;
+    item: {
+      id: number;
+      price: number;
+      title: string;
+      description: string;
+      imageUrl: string;
+      created_at: string;
+    };
+  }>;
+};
+
 export default function Orders() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(false);
 
   const { session, loading: authLoading } = useAuth();
@@ -44,9 +63,9 @@ export default function Orders() {
     return <div>loading...</div>;
   }
 
-  const getTotalItems = (order: any) => {
+  const getTotalItems = (order: OrderData) => {
     let count = 0;
-    order.products.forEach((product: any) => {
+    order.products.forEach((product) => {
       count += product.quantity;
     });
     return count;
