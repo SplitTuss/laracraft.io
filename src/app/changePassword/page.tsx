@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/shadcn/Input';
 
 export default function ChangePassword() {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +25,7 @@ export default function ChangePassword() {
     e.preventDefault();
     setLoading(true);
 
-    const userData = await changePassword(email, password);
+    const userData = await changePassword(password);
     console.log(userData);
     setLoading(false);
   };

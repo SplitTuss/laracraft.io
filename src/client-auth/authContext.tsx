@@ -19,7 +19,7 @@ interface AuthContextType {
   signin: (email: string, password: string) => Promise<AuthTokenResponsePassword>;
   signout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
-  changePassword: (email: string, password: string) => Promise<UserResponse>;
+  changePassword: (password: string) => Promise<UserResponse>;
   changeEmail: (email: string) => Promise<UserResponse>;
 }
 
@@ -84,7 +84,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     });
   };
   // change password
-  const changePassword = async (email: string, password: string) => {
+  const changePassword = async (password: string) => {
+    const email = session?.user.email;
     return await supabase.auth.updateUser({ email, password });
   };
   // change email
