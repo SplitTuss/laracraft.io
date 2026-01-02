@@ -48,17 +48,17 @@ export default function Signin() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button>
+          <div className="mb-2 underline">
             <Link href="/forgotPassword" className="text-sm flex justify-center">
               forgot password?
             </Link>
-          </Button>
+          </div>
           <Button type="submit" disabled={loading}>
             sign in
           </Button>
         </div>
         <p className="text-sm flex justify-center">don`t have an account yet? </p>
-        <Link href="/signup" className="text-sm flex justify-center">
+        <Link href="/signup" className="text-sm underline flex justify-center">
           go to signup
         </Link>
       </form>

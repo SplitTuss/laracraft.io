@@ -44,7 +44,7 @@ export default function ForgotPassword() {
             send email
           </Button>
         </div>
-        <Link href="/signin" className="text-sm flex justify-center">
+        <Link href="/signin" className="text-sm underline flex justify-center">
           back to signin
         </Link>
       </form>

@@ -53,7 +53,7 @@ export default function Signup() {
           </Button>
         </div>
         <p className="text-sm flex justify-center">already have an account?</p>
-        <Link href="/signin" className="text-sm flex justify-center">
+        <Link href="/signin" className="text-sm underline flex justify-center">
           go to signin
         </Link>
       </form>
