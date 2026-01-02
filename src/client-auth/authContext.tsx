@@ -20,6 +20,7 @@ interface AuthContextType {
   signout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   changePassword: (email: string, password: string) => Promise<UserResponse>;
+  changeEmail: (email: string) => Promise<UserResponse>;
 }
 
 const notReadyFunction = () => {
@@ -34,6 +35,7 @@ const AuthContext = createContext<AuthContextType>({
   signout: notReadyFunction,
   forgotPassword: notReadyFunction,
   changePassword: notReadyFunction,
+  changeEmail: notReadyFunction,
 });
 
 export const useAuth = () => {
@@ -85,10 +87,23 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const changePassword = async (email: string, password: string) => {
     return await supabase.auth.updateUser({ email, password });
   };
+  // change email
+  const changeEmail = async (email: string) => {
+    return await supabase.auth.updateUser({ email }, { emailRedirectTo: `${BASE_URL}/profile` });
+  };
 
   return (
     <AuthContext.Provider
-      value={{ session, loading, signup, signout, signin, forgotPassword, changePassword }}
+      value={{
+        session,
+        loading,
+        signup,
+        signout,
+        signin,
+        forgotPassword,
+        changePassword,
+        changeEmail,
+      }}
     >
       {children}
     </AuthContext.Provider>
