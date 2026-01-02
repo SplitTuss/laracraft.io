@@ -1,23 +1,23 @@
 import { supabase } from '@/server-auth/supabase-client';
 
 export async function GET(request: Request) {
-  // const accessToken = request.headers.get('Authorization');
+  const accessToken = request.headers.get('Authorization');
 
-  // if (!accessToken) {
-  //   return new Response('unauthorized!', {
-  //     status: 401,
-  //     headers: { 'Content-Type': 'application/json' },
-  //   });
-  // }
+  if (!accessToken) {
+    return new Response('unauthorized!', {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
-  // const result = await supabase.auth.getUser(accessToken);
+  const authResult = await supabase.auth.getUser(accessToken);
 
-  // if (result.error) {
-  //   return new Response(result.error.message, {
-  //     status: result.error.status,
-  //     headers: { 'Content-Type': 'application/json' },
-  //   });
-  // }
+  if (authResult.error) {
+    return new Response(authResult.error.message, {
+      status: authResult.error.status,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   const result = await supabase
     .from('orders')
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
       )
     `,
     )
-    .eq('id', 1);
+    .eq('userId', authResult.data.user.id);
 
   return new Response(JSON.stringify(result.data), {
     status: 200,
