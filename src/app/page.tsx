@@ -1,17 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/header';
 import { SearchBar } from '../components/searchBar';
 import ProductCard from '@/components/productCard';
-import { PRODUCTS } from '@/components/products';
+
+type ProductData = {
+  imageUrl: string;
+  title: string;
+  price: number;
+  description: string;
+};
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState('');
+  const [products, setProducts] = useState<Array<ProductData>>([]);
 
-  const filteredProducts = PRODUCTS.filter((product) =>
+  const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchInput.toLowerCase()),
   );
+
+  const handleLoadProducts = async () => {
+    const result = await fetch('/api/products');
+
+    if (!result.ok) {
+      console.log('products not ok');
+      return;
+    }
+
+    const data = await result.json();
+    setProducts(data);
+  };
+
+  useEffect(() => {
+    handleLoadProducts();
+  }, []);
 
   return (
     <>
@@ -24,7 +47,6 @@ export default function Home() {
           <ProductCard
             key={product.title}
             imageUrl={product.imageUrl}
-            imageAlt={product.imageAlt}
             title={product.title}
             price={product.price}
             description={product.description}
