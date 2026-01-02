@@ -78,10 +78,10 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   //forgot password
   const forgotPassword = async (email: string) => {
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${BASE_URL}/profile`,
+      redirectTo: `${BASE_URL}/changePassword`,
     });
   };
-  // reset password
+  // change password
   const changePassword = async (email: string, password: string) => {
     return await supabase.auth.updateUser({ email, password });
   };
