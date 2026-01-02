@@ -23,24 +23,39 @@ export default function ProfilePage() {
     console.log('logging out...');
   };
 
+  //ToDo: wire up 'change password' button & 'change email'
+
   return (
     <>
       <Header />
       <div className="flex flex-col items-center text-2xl mt-4">
         <h1 className="text-2xl text-primary">Profile page</h1>
         <br />
-        <h2>Welcome, {session?.user?.email}</h2>
+        <h2>Welcome, {session?.user?.email}!</h2>
         <br />
-
-        <Link href="/orders" className="underline">
-          go to my orders
-        </Link>
+        <div className="flex flex-row gap-4">
+          <Link href="/orders" className="underline">
+            go to my orders
+          </Link>
+          <br />
+          <Link href="/" className="underline">
+            go home
+          </Link>
+        </div>
         <br />
-        <Link href="/" className="underline">
-          go home!
-        </Link>
-        <br />
-        <Button onClick={handleLogout}>logout</Button>
+        <div className="flex flex-row gap-2">
+          <Button>
+            <Link href="/changeEmail" className="underline">
+              change email
+            </Link>
+          </Button>
+          <Button>
+            <Link href="/changePassword" className="underline">
+              change password
+            </Link>
+          </Button>
+          <Button onClick={handleLogout}>logout</Button>
+        </div>
         <br />
       </div>
     </>

@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, createContext, useContext, useEffect } from 'react';
-import type { Session, AuthResponse, AuthTokenResponsePassword } from '@supabase/supabase-js';
+import type {
+  Session,
+  UserResponse,
+  AuthResponse,
+  AuthTokenResponsePassword,
+} from '@supabase/supabase-js';
 import { supabase } from './supabase-client';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -14,6 +19,7 @@ interface AuthContextType {
   signin: (email: string, password: string) => Promise<AuthTokenResponsePassword>;
   signout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
+  changePassword: (email: string, password: string) => Promise<UserResponse>;
 }
 
 const notReadyFunction = () => {
@@ -27,6 +33,7 @@ const AuthContext = createContext<AuthContextType>({
   signin: notReadyFunction,
   signout: notReadyFunction,
   forgotPassword: notReadyFunction,
+  changePassword: notReadyFunction,
 });
 
 export const useAuth = () => {
@@ -74,9 +81,15 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       redirectTo: `${BASE_URL}/profile`,
     });
   };
+  // reset password
+  const changePassword = async (email: string, password: string) => {
+    return await supabase.auth.updateUser({ email, password });
+  };
 
   return (
-    <AuthContext.Provider value={{ session, loading, signup, signout, signin, forgotPassword }}>
+    <AuthContext.Provider
+      value={{ session, loading, signup, signout, signin, forgotPassword, changePassword }}
+    >
       {children}
     </AuthContext.Provider>
   );
