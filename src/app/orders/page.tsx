@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
 
@@ -39,7 +39,7 @@ export default function Orders() {
     }
   }, [session, authLoading, router]);
 
-  const handleLoadOrders = async () => {
+  const handleLoadOrders = useCallback(async () => {
     setLoading(true);
 
     const response = await fetch('/api/orders', {
@@ -51,13 +51,13 @@ export default function Orders() {
     const data = await response.json();
     setOrders(data);
     setLoading(false);
-  };
+  }, [session?.access_token]);
 
   useEffect(() => {
     if (authLoading || !session) return;
 
     handleLoadOrders();
-  }, [authLoading, session]);
+  }, [authLoading, session, handleLoadOrders]);
 
   if (authLoading || loading) {
     return <div>loading...</div>;
