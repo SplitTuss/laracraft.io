@@ -44,6 +44,14 @@ export default function Orders() {
     return <div>loading...</div>;
   }
 
+  const getTotalItems = (order: any) => {
+    let count = 0;
+    order.products.forEach((product: any) => {
+      count += product.quantity;
+    });
+    return count;
+  };
+
   return (
     <>
       <Header />
@@ -53,9 +61,11 @@ export default function Orders() {
         <ul>
           {orders.map((order) => (
             <li key={order.id} className="grid grid-cols-3">
-              <div className="col-span-1">items: {order.items}</div>
+              <div className="col-span-1">items: {getTotalItems(order)}</div>
               <div className="col-span-1">total: {order.total}</div>
-              <div className="col-span-1">date: {order.date}</div>
+              <div className="col-span-1">
+                date: {new Date(order.created_at).toLocaleDateString()}
+              </div>
             </li>
           ))}
         </ul>
