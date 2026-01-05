@@ -1,6 +1,7 @@
 import { ShoppingCartIcon, UserIcon, BookTextIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './shadcn/Button';
+import Cart from './cart';
 
 export default function Header() {
   return (
@@ -23,9 +24,7 @@ export default function Header() {
             <BookTextIcon />
           </Link>
         </Button>
-        <Button className="hover:cursor-pointer" size="icon-sm">
-          <ShoppingCartIcon />
-        </Button>
+        <Cart />
       </div>
     </div>
   );
