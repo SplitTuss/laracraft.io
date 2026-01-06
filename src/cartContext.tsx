@@ -5,7 +5,7 @@ import { useState, createContext, useContext, useEffect } from 'react';
 const CART_LOCAL_STORAGE_KEY = 'cart';
 
 // TYPES: this defines what a cart item looks like
-interface CartItem {
+export interface CartItem {
   productId: number;
   quantity: number;
 }

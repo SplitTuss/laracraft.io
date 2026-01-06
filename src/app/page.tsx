@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Header from '../components/header';
 import { SearchBar } from '../components/searchBar';
 import ProductCard from '@/components/productCard';
-import { useCart } from '@/cartContext';
 
 type ProductData = {
   id: number;
@@ -21,9 +20,6 @@ export default function Home() {
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchInput.toLowerCase()),
   );
-
-  const { cart } = useCart();
-  console.log(cart);
 
   const handleLoadProducts = async () => {
     const result = await fetch('/api/products');
