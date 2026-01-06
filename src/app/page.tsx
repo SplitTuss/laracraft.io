@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import Header from '../components/header';
 import { SearchBar } from '../components/searchBar';
 import ProductCard from '@/components/productCard';
+import { useCart } from '@/cartContext';
 
 type ProductData = {
+  id: number;
   imageUrl: string;
   title: string;
   price: number;
@@ -19,6 +21,9 @@ export default function Home() {
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchInput.toLowerCase()),
   );
+
+  const { cart } = useCart();
+  console.log(cart);
 
   const handleLoadProducts = async () => {
     const result = await fetch('/api/products');
@@ -45,7 +50,8 @@ export default function Home() {
       <ul className="grid sm:grid-cols-5 grid-cols-2 m-2">
         {filteredProducts.map((product) => (
           <ProductCard
-            key={product.title}
+            key={product.id}
+            productId={product.id}
             imageUrl={product.imageUrl}
             title={product.title}
             price={product.price}

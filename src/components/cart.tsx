@@ -9,8 +9,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/shadcn/Dialog';
+import { useCart } from '@/cartContext';
 
 export default function Cart() {
+  const { cart, updateCart } = useCart();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,24 +28,31 @@ export default function Cart() {
           </DialogTitle>
         </DialogHeader>
         <ul>
-          <li>
-            <div className="flex justify-center font-bold text-lg">item title</div>
-            <div className="flex flex-row justify-center gap-2">
-              <Button>-</Button>
-              <div>amount</div>
-              <Button>+</Button>
-              <div>$ total</div>
-            </div>
-          </li>
-          <li>
-            <div className="flex justify-center font-bold text-lg">item title</div>
-            <div className="flex flex-row justify-center gap-2">
-              <Button>-</Button>
-              <div>amount</div>
-              <Button>+</Button>
-              <div>$ total</div>
-            </div>
-          </li>
+          {cart.map((item, index) => (
+            <li key={index} className="border-2 rounded-xl mb-2">
+              <div className="flex justify-center font-bold text-lg mb-2">item title</div>
+              <div className="flex flex-row justify-center gap-2 mb-2">
+                <Button
+                  size="icon-sm"
+                  onClick={() =>
+                    updateCart({ productId: item.productId, quantity: item.quantity - 1 })
+                  }
+                >
+                  -
+                </Button>
+                <div>amount</div>
+                <Button
+                  size="icon-sm"
+                  onClick={() =>
+                    updateCart({ productId: item.productId, quantity: item.quantity + 1 })
+                  }
+                >
+                  +
+                </Button>
+                <div>$ total</div>
+              </div>
+            </li>
+          ))}
         </ul>
         <DialogFooter>
           <Button type="submit">checkout</Button>
