@@ -2,6 +2,8 @@
 
 import { useState, createContext, useContext, useEffect } from 'react';
 
+const CART_LOCAL_STORAGE_KEY = 'cart';
+
 // TYPES: this defines what a cart item looks like
 interface CartItem {
   productId: number;
@@ -38,21 +40,26 @@ interface CartContextProviderProps {
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [cart, setCart] = useState<Array<CartItem>>([]);
 
+  const handleSetCart = (updatedCart: Array<CartItem>) => {
+    setCart(updatedCart);
+    localStorage.setItem(CART_LOCAL_STORAGE_KEY, JSON.stringify(updatedCart));
+  };
+
   const updateCart = (item: CartItem) => {
     const foundItemIndex = cart.findIndex((cartItem) => cartItem.productId === item.productId);
     // if cart item doesn't exist & new quantity is greater than 0, add item to already existing cart array
     if (foundItemIndex === -1 && item.quantity > 0) {
-      setCart([...cart, item]);
+      handleSetCart([...cart, item]);
     } // if cart item exists & new quantity is greater than 0, set existing item quantity to new quantity
     else if (foundItemIndex >= 0 && item.quantity > 0) {
       const newCart = [...cart];
       newCart[foundItemIndex].quantity = item.quantity;
-      setCart(newCart);
+      handleSetCart(newCart);
     } // if cart item exists & new quantity is 0, remove item from cart
     else if (foundItemIndex >= 0 && item.quantity === 0) {
       const newCart = [...cart];
       newCart.splice(foundItemIndex, 1);
-      setCart(newCart);
+      handleSetCart(newCart);
     }
   };
 
