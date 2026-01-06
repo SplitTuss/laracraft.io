@@ -17,7 +17,9 @@ export default function ProductCard({
   price,
   description,
 }: ProductProps) {
-  const { updateCart } = useCart();
+  const { cart, updateCart } = useCart();
+
+  const existingQuantity = cart.find((cartItem) => productId === cartItem.productId)?.quantity ?? 0;
 
   return (
     <li className="m-2 h-full flex border-2 rounded-xl border-accent">
@@ -34,7 +36,7 @@ export default function ProductCard({
 
         <div className="flex flex-row w-full relative justify-center mt-auto mb-2">
           <Button
-            onClick={() => updateCart({ productId: productId, quantity: 1 })}
+            onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
             size="icon-sm"
             className="hover:cursor-pointer"
           >
