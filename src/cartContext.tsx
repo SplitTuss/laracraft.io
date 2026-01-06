@@ -45,6 +45,13 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     localStorage.setItem(CART_LOCAL_STORAGE_KEY, JSON.stringify(updatedCart));
   };
 
+  useEffect(() => {
+    const existingCart = localStorage.getItem(CART_LOCAL_STORAGE_KEY);
+    if (existingCart !== null) {
+      setCart(JSON.parse(existingCart));
+    }
+  }, []);
+
   const updateCart = (item: CartItem) => {
     const foundItemIndex = cart.findIndex((cartItem) => cartItem.productId === item.productId);
     // if cart item doesn't exist & new quantity is greater than 0, add item to already existing cart array
