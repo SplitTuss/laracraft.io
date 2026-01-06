@@ -5,7 +5,7 @@ import Header from '../components/header';
 import { SearchBar } from '../components/searchBar';
 import ProductCard from '@/components/productCard';
 
-type ProductData = {
+export type ProductData = {
   id: number;
   imageUrl: string;
   title: string;
