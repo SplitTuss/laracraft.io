@@ -37,20 +37,10 @@ export default function ProductCard({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
 
-            <div className="flex flex-col grid-rows-1 gap-4 text-xl">
+            <div className="flex flex-col grid-rows-1 gap-2 text-xl">
               <div className="text-center font-bold">{title}</div>
-              <div className="m-4">{description}</div>
-            </div>
-
-            <div className="flex flex-row w-full relative justify-center mt-auto mb-2">
-              <Button
-                onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
-                size="icon-sm"
-                className="hover:cursor-pointer"
-              >
-                <PlusIcon />
-              </Button>
-              <div className="absolute right-6">${price}</div>
+              <div className="flex justify-end mr-4">${price}</div>
+              <div className="m-2">{description}</div>
             </div>
           </div>
         </li>

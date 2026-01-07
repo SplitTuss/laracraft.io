@@ -26,32 +26,34 @@ export default function CartItemComponent({ item }: CartItemProps) {
 
   useEffect(() => {
     handleLoadProduct();
-  });
+  }, []);
 
   if (!product) {
     return <div>loading...</div>;
   }
 
   return (
-    <div className="border-2 rounded-xl mb-2">
+    <div className="border-2 rounded-lg">
       <div className="flex justify-center font-bold text-lg mb-2">{product.title}</div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={product.imageUrl} alt={product.title} height="auto" width={40} />
-      <div className="flex flex-row justify-center gap-2 mb-2">
-        <Button
-          size="icon-sm"
-          onClick={() => updateCart({ productId: item.productId, quantity: item.quantity - 1 })}
-        >
-          -
-        </Button>
-        <div>{item.quantity}</div>
-        <Button
-          size="icon-sm"
-          onClick={() => updateCart({ productId: item.productId, quantity: item.quantity + 1 })}
-        >
-          +
-        </Button>
-        <div>$ {product.price}</div>
+      <div className="flex flex-row items-center justify-between m-2">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={product.imageUrl} alt={product.title} height="auto" width={50} className="mt-4" />
+        <div className="flex flex-row justify-center gap-2 mb-2">
+          <Button
+            size="icon-sm"
+            onClick={() => updateCart({ productId: item.productId, quantity: item.quantity - 1 })}
+          >
+            -
+          </Button>
+          <div>{item.quantity}</div>
+          <Button
+            size="icon-sm"
+            onClick={() => updateCart({ productId: item.productId, quantity: item.quantity + 1 })}
+          >
+            +
+          </Button>
+        </div>
+        <div className="mr-2">$ {product.price}</div>
       </div>
     </div>
   );

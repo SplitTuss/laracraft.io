@@ -1,19 +1,21 @@
-import { ShoppingCartIcon, UserIcon, BookTextIcon } from 'lucide-react';
+import { UserIcon, BookTextIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './shadcn/Button';
 import Cart from './cart';
 
 export default function Header() {
   return (
-    <div className="grid grid-cols-5 bg-accent p-2">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/favicon.ico" alt="laracraft.io logo" className="col-span-1 w-20 h-20 rounded-lg" />
+    <div className="flex flex-row justify-between bg-accent p-2 h-25">
+      <div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/favicon.ico" alt="laracraft.io logo" className="w-20 h-20 rounded-lg" />
+      </div>
 
-      <Link href="/" className="col-span-3 mt-6 text-xl sm:text-3xl text-center text-primary">
-        laracraft.io
-      </Link>
+      <div className="mt-6 text-center text-3xl text-primary">
+        <Link href="/">laracraft.io</Link>
+      </div>
 
-      <div className="col-span-1 flex flex-row flex-wrap justify-end gap-2 mt-7">
+      <div className="flex flex-row gap-2 mt-8">
         <Button className="hover:cursor-pointer" size="icon-sm">
           <Link href="/profile" className="hover:text-primary">
             <UserIcon />

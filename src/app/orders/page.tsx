@@ -81,21 +81,22 @@ export default function Orders() {
   return (
     <>
       <Header />
-      <div className="flex flex-col text-2xl mt-4">
-        <h1 className="text-center text-2xl text-primary">your orders</h1>
+      <div className="flex flex-col items-center text-2xl m-4">
+        <h1 className="text-center text-2xl text-primary">orders for {session?.user.email}</h1>
         <br />
-        <ul>
+        <ul className="m-2 sm:text-2xl text-sm">
           {orders.map((order) => (
             <Dialog key={order.id}>
               <DialogTrigger>
                 <li
                   key={order.id}
-                  className="flex justify-center rounded-xl border-2 border-accent"
+                  className="flex justify-center rounded-xl border-2 border-accent p-2"
                 >
                   <div className="flex flex-row gap-6">
-                    <div>items: {getTotalItems(order)}</div>
-                    <div>total: {order.total}</div>
                     <div>date: {new Date(order.created_at).toLocaleDateString()}</div>
+                    <div>order number: #{order.id}</div>
+                    <div>total: ${order.total}</div>
+                    <div>items: {getTotalItems(order)}</div>
                   </div>
                 </li>
               </DialogTrigger>
