@@ -4,6 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/shadcn/Dialog';
 
 type OrderData = {
   id: number;
@@ -74,18 +81,46 @@ export default function Orders() {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center text-2xl mt-4">
-        <h1 className="text-2xl text-primary">your orders</h1>
+      <div className="flex flex-col text-2xl mt-4">
+        <h1 className="text-center text-2xl text-primary">your orders</h1>
         <br />
         <ul>
           {orders.map((order) => (
-            <li key={order.id} className="grid grid-cols-3">
-              <div className="col-span-1">items: {getTotalItems(order)}</div>
-              <div className="col-span-1">total: {order.total}</div>
-              <div className="col-span-1">
-                date: {new Date(order.created_at).toLocaleDateString()}
-              </div>
-            </li>
+            <Dialog key={order.id}>
+              <DialogTrigger>
+                <li
+                  key={order.id}
+                  className="flex justify-center rounded-xl border-2 border-accent"
+                >
+                  <div className="flex flex-row gap-6">
+                    <div>items: {getTotalItems(order)}</div>
+                    <div>total: {order.total}</div>
+                    <div>date: {new Date(order.created_at).toLocaleDateString()}</div>
+                  </div>
+                </li>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Order #{order.id}</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col">
+                  <div>total items: {getTotalItems(order)}</div>
+                  <div>total price: ${order.total}</div>
+                  <div>ordered on: {new Date(order.created_at).toLocaleDateString()}</div>
+                </div>
+                <div>
+                  items ordered:
+                  {order.products.map((product) => (
+                    <div key={product.id} className="flex flex-row gap-4 mb-2">
+                      <img src={product.item.imageUrl} height="auto" width={40} />
+                      <div>{product.item.title}</div>
+                      <div>${product.item.price}</div>
+                      <div>x{product.quantity}</div>
+                    </div>
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
           ))}
         </ul>
       </div>
