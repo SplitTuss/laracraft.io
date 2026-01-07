@@ -26,7 +26,7 @@ export default function CartItemComponent({ item }: CartItemProps) {
 
   useEffect(() => {
     handleLoadProduct();
-  }, []);
+  });
 
   if (!product) {
     return <div>loading...</div>;
@@ -35,6 +35,7 @@ export default function CartItemComponent({ item }: CartItemProps) {
   return (
     <div className="border-2 rounded-xl mb-2">
       <div className="flex justify-center font-bold text-lg mb-2">{product.title}</div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={product.imageUrl} alt={product.title} height="auto" width={40} />
       <div className="flex flex-row justify-center gap-2 mb-2">
         <Button
