@@ -1,4 +1,3 @@
-import { NextApiRequest } from 'next';
 import { supabase } from '@/server-auth/supabase-client';
 
 interface RouteContext {
@@ -7,7 +6,7 @@ interface RouteContext {
   }>;
 }
 
-export async function GET(_: NextApiRequest, ctx: RouteContext) {
+export async function GET(_: Request, ctx: RouteContext) {
   const params = await ctx.params;
   const result = await supabase.from('products').select().eq('id', params.id).single();
 
