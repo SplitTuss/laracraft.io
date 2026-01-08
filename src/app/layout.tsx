@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { AuthContextProvider } from '@/client-auth/authContext';
 import { CartContextProvider } from '@/cartContext';
 import './globals.css';
+import { Toaster } from '@/components/shadcn/Toast';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics gaId="G-Y3R6E2K1Y8" />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Toaster />
         <AuthContextProvider>
           <CartContextProvider>{children}</CartContextProvider>
         </AuthContextProvider>
