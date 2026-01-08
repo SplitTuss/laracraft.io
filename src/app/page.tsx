@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="mt-2">
+      <div className="m-4">
         <SearchBar onSearchChange={setSearchInput} />
       </div>
       <ul className="grid sm:grid-cols-5 grid-cols-2 m-2">
