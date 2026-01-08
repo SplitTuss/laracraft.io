@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@/components/shadcn/Button';
-import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/shadcn/Button';
+import { useAuth } from '@/client-auth/authContext';
 import { Input } from '@/components/shadcn/Input';
 
 export default function Signup() {
@@ -31,6 +32,8 @@ export default function Signup() {
     setLoading(false);
   };
 
+  //add error toast for password restrictions
+
   return (
     <div className="flex justify-center text-2xl mt-4">
       <form className="max-w-md" onSubmit={handleSubmit}>
@@ -48,7 +51,13 @@ export default function Signup() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+            onClick={() => {
+              toast.info('email verification link sent!');
+            }}
+          >
             sign up
           </Button>
         </div>

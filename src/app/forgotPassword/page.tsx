@@ -5,6 +5,7 @@ import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Input } from '@/components/shadcn/Input';
 
 export default function ForgotPassword() {
@@ -40,7 +41,13 @@ export default function ForgotPassword() {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+            onClick={() => {
+              toast.info('check your e-mails!');
+            }}
+          >
             send email
           </Button>
         </div>

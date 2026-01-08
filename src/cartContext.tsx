@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, createContext, useContext, useEffect } from 'react';
+import { toast } from 'sonner';
 
 const CART_LOCAL_STORAGE_KEY = 'cart';
 
@@ -57,11 +58,13 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     // if cart item doesn't exist & new quantity is greater than 0, add item to already existing cart array
     if (foundItemIndex === -1 && item.quantity > 0) {
       handleSetCart([...cart, item]);
+      toast.info('added to cart');
     } // if cart item exists & new quantity is greater than 0, set existing item quantity to new quantity
     else if (foundItemIndex >= 0 && item.quantity > 0) {
       const newCart = [...cart];
       newCart[foundItemIndex].quantity = item.quantity;
       handleSetCart(newCart);
+      toast.info('updated cart');
     } // if cart item exists & new quantity is 0, remove item from cart
     else if (foundItemIndex >= 0 && item.quantity === 0) {
       const newCart = [...cart];

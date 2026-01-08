@@ -5,6 +5,7 @@ import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Input } from '@/components/shadcn/Input';
 
 export default function ChangeEmail() {
@@ -42,7 +43,13 @@ export default function ChangeEmail() {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+            onClick={() => {
+              toast.info('email verification link sent!');
+            }}
+          >
             change email
           </Button>
         </div>
