@@ -113,7 +113,13 @@ export default function Orders() {
                   items ordered:
                   {order.products.map((product) => (
                     <div key={product.id} className="flex flex-row gap-4 mb-2">
-                      <img src={product.item.imageUrl} height="auto" width={40} />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.item.imageUrl}
+                        alt={product.item.title}
+                        height="auto"
+                        width={40}
+                      />
                       <div>{product.item.title}</div>
                       <div>${product.item.price}</div>
                       <div>x{product.quantity}</div>
