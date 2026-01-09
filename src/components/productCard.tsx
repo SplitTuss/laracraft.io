@@ -31,14 +31,16 @@ export default function ProductCard({
 
   return (
     <Dialog>
-      <DialogTrigger>
-        <li className="m-2 h-full flex border-2 rounded-xl border-accent">
-          <div className="flex flex-col items-center w-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
+      <DialogTrigger className="m-2">
+        <li className="h-full flex border-2 rounded-xl border-accent">
+          <div className="flex flex-col items-center w-full hover:cursor-pointer">
+            <div className="h-55 sm:h-68 flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
+            </div>
 
-            <div className="flex flex-col grid-rows-1 gap-2 text-xl">
-              <div className="text-center font-bold">{title}</div>
+            <div className="flex flex-col gap-2">
+              <div className="text-center font-bold text-xl text-primary">{title}</div>
               <div className="flex justify-end mr-4">${price}</div>
               <div className="m-2">{description}</div>
             </div>
@@ -48,26 +50,24 @@ export default function ProductCard({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <div className="text-center font-bold">{title}</div>
+            <div className="text-center text-2xl font-bold">{title}</div>
           </DialogTitle>
         </DialogHeader>
-        <div className="m-2 flex">
-          <div className="flex flex-col items-center w-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
-            <DialogDescription>
-              <div className="text-center m-4">{description}</div>
-            </DialogDescription>
-            <div className="flex flex-row w-full relative justify-center mt-auto mb-2">
-              <Button
-                onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
-                size="icon-sm"
-                className="hover:cursor-pointer"
-              >
-                <PlusIcon />
-              </Button>
-              <div className="absolute right-6">${price}</div>
-            </div>
+        <div className="flex flex-col items-center w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
+          <DialogDescription>
+            <div className="text-center m-4">{description}</div>
+          </DialogDescription>
+          <div className="flex flex-row w-full relative justify-center mt-auto">
+            <Button
+              onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
+              size="icon-sm"
+              className="hover:cursor-pointer"
+            >
+              <PlusIcon />
+            </Button>
+            <div className="absolute right-6">$ {price}</div>
           </div>
         </div>
       </DialogContent>
