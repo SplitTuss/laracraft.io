@@ -5,12 +5,12 @@ import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
 import { Input } from '@/components/shadcn/Input';
 
 export default function ChangePassword() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { session, loading: authLoading, changePassword } = useAuth();
   const router = useRouter();
@@ -25,7 +25,12 @@ export default function ChangePassword() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
+    if (!password) {
+      setError('enter password');
+      return;
+    }
     const userData = await changePassword(password);
     console.log(userData);
     setLoading(false);
@@ -39,17 +44,14 @@ export default function ChangePassword() {
           <h2 className="flex text-center">change password for {session?.user?.email}!</h2>
           <Input
             placeholder="new password"
-            className="bg-accent p-2 mb-4"
+            className="bg-accent mt-2 p-2 mb-4"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            type="submit"
-            disabled={loading}
-            onClick={() => {
-              toast.info('password updated!');
-            }}
-          >
+          {error && (
+            <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
+          )}
+          <Button type="submit" disabled={loading}>
             change password
           </Button>
         </div>

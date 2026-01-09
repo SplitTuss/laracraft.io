@@ -11,6 +11,7 @@ import { Input } from '@/components/shadcn/Input';
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { session, loading: authLoading, forgotPassword } = useAuth();
   const router = useRouter();
@@ -25,6 +26,11 @@ export default function ForgotPassword() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!email) {
+      setError('enter email');
+    }
+    setError('');
 
     await forgotPassword(email);
     setLoading(false);
@@ -41,6 +47,9 @@ export default function ForgotPassword() {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
+          {error && (
+            <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
+          )}
           <Button
             type="submit"
             disabled={loading}

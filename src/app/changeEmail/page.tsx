@@ -11,6 +11,7 @@ import { Input } from '@/components/shadcn/Input';
 export default function ChangeEmail() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { session, loading: authLoading, changeEmail } = useAuth();
   const router = useRouter();
@@ -26,8 +27,15 @@ export default function ChangeEmail() {
     e.preventDefault();
     setLoading(true);
 
+    if (!email) {
+      setError('enter email');
+    } else {
+      toast.info('email sent');
+    }
+
     const userData = await changeEmail(email);
     console.log(userData);
+
     setLoading(false);
   };
 
@@ -43,13 +51,10 @@ export default function ChangeEmail() {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button
-            type="submit"
-            disabled={loading}
-            onClick={() => {
-              toast.info('email verification link sent!');
-            }}
-          >
+          {error && (
+            <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
+          )}
+          <Button type="submit" disabled={loading}>
             change email
           </Button>
         </div>

@@ -11,6 +11,7 @@ export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { session, loading: authLoading, signin } = useAuth();
   const router = useRouter();
@@ -25,9 +26,20 @@ export default function Signin() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
 
+    if (!password) {
+      setError('enter password');
+      return;
+    }
+    if (!email) {
+      setError('enter email');
+      return;
+    }
     const userData = await signin(email, password);
-    console.log('you have been logged in', userData);
+    if (userData.error) {
+      setError(userData.error.message);
+    }
     setLoading(false);
   };
 
@@ -48,6 +60,9 @@ export default function Signin() {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          {error && (
+            <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
+          )}
           <div className="mb-2 underline">
             <Link href="/forgotPassword" className="text-sm flex justify-center">
               forgot password?

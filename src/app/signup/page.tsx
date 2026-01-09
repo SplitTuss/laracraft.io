@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 import { Input } from '@/components/shadcn/Input';
@@ -12,6 +11,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { session, loading: authLoading, signup } = useAuth();
   const router = useRouter();
@@ -26,38 +26,56 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
+    if (password.length < 6) {
+      setError('Password has to be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+    if (!email.includes('@') || !email.includes('.')) {
+      setError('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
 
     const userData = await signup(email, password);
-    console.log(userData);
+    if (email === userData.data.user?.email) {
+      setError('email is already registered');
+      setLoading(false);
+      return;
+    }
+    if (userData.error) {
+      setError(userData.error.message);
+      setLoading(false);
+    } else {
+      setError('');
+    }
+
     setLoading(false);
   };
 
-  //add error toast for password restrictions
-
   return (
     <div className="flex justify-center text-2xl mt-4">
-      <form className="max-w-md" onSubmit={handleSubmit}>
+      <form className="" onSubmit={handleSubmit}>
         <h1 className="text-2xl text-primary flex justify-center">sign up today!</h1>
-        <div className="flex flex-col py-4">
+        <div className="flex flex-col m-4">
           <Input
             placeholder="email"
-            className="bg-accent p-2 mb-4"
+            className="bg-accent mb-2"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             placeholder="password"
-            className="bg-accent p-2 mb-4"
+            className="bg-accent mb-4"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            type="submit"
-            disabled={loading}
-            onClick={() => {
-              toast.info('email verification link sent!');
-            }}
-          >
+          {error && (
+            <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
+          )}
+          <Button type="submit" disabled={loading}>
             sign up
           </Button>
         </div>
