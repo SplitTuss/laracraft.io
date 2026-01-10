@@ -20,10 +20,7 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await signout();
-    console.log('logging out...');
   };
-
-  //ToDo: wire up 'change password' button & 'change email'
 
   return (
     <>
