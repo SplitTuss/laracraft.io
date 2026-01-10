@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import * as EmailValidator from 'email-validator';
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 import { Input } from '@/components/shadcn/Input';
@@ -28,35 +29,23 @@ export default function Signup() {
     setLoading(true);
     setError('');
 
-    if (password.length < 6) {
-      setError('Password has to be at least 6 characters long');
-      setLoading(false);
-      return;
-    }
-    if (!email.includes('@') || !email.includes('.')) {
+    if (!EmailValidator.validate(email)) {
       setError('Please enter a valid email address');
-      setLoading(false);
-      return;
     }
 
     const userData = await signup(email, password);
     if (email === userData.data.user?.email) {
       setError('email is already registered');
-      setLoading(false);
-      return;
     }
     if (userData.error) {
       setError(userData.error.message);
-      setLoading(false);
-    } else {
-      setError('');
     }
 
     setLoading(false);
   };
 
   return (
-    <div className="flex justify-center text-2xl mt-4">
+    <div className="flex justify-center mt-4">
       <form className="" onSubmit={handleSubmit}>
         <h1 className="text-2xl text-primary flex justify-center">sign up today!</h1>
         <div className="flex flex-col m-4">

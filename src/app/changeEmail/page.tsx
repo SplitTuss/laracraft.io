@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@/components/shadcn/Button';
-import { useAuth } from '@/client-auth/authContext';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
+import * as EmailValidator from 'email-validator';
+import { useAuth } from '@/client-auth/authContext';
+import { Button } from '@/components/shadcn/Button';
 import { Input } from '@/components/shadcn/Input';
 
 export default function ChangeEmail() {
@@ -29,13 +29,17 @@ export default function ChangeEmail() {
 
     if (!email) {
       setError('enter email');
-    } else {
-      toast.info('email sent');
     }
-
+    if (!EmailValidator.validate(email)) {
+      setError('Please enter a valid email address');
+    }
     const userData = await changeEmail(email);
-    console.log(userData);
-
+    if (email === userData.data.user?.email) {
+      setError('can`t change email to same email');
+    }
+    if (userData.error) {
+      setError(userData.error.message);
+    }
     setLoading(false);
   };
 

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import * as EmailValidator from 'email-validator';
 import { useAuth } from '@/client-auth/authContext';
 import { Button } from '@/components/shadcn/Button';
 import { Input } from '@/components/shadcn/Input';
@@ -17,7 +18,6 @@ export default function Signin() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('sign in', { session });
     if (!authLoading && session !== null) {
       router.push('/profile');
     }
@@ -30,11 +30,12 @@ export default function Signin() {
 
     if (!password) {
       setError('enter password');
-      return;
     }
     if (!email) {
       setError('enter email');
-      return;
+    }
+    if (!EmailValidator.validate(email)) {
+      setError('Please enter a valid email address');
     }
     const userData = await signin(email, password);
     if (userData.error) {

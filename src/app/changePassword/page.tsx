@@ -29,15 +29,17 @@ export default function ChangePassword() {
 
     if (!password) {
       setError('enter password');
-      return;
     }
     const userData = await changePassword(password);
+    if (userData.error) {
+      setError(userData.error.message);
+    }
     console.log(userData);
     setLoading(false);
   };
 
   return (
-    <div className="flex justify-center text-2xl mt-4 p-4">
+    <div className="flex justify-center mt-4 p-4">
       <form className="max-w-md" onSubmit={handleSubmit}>
         <h1 className="text-2xl text-primary flex justify-center">change password</h1>
         <div className="flex flex-col py-4">
