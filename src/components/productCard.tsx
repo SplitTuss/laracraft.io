@@ -31,22 +31,29 @@ export default function ProductCard({
 
   return (
     <Dialog>
-      <DialogTrigger className="m-2">
-        <li className="h-full flex border-2 rounded-xl border-accent">
-          <div className="flex flex-col items-center w-full hover:cursor-pointer">
-            <div className="h-55 sm:h-68 flex items-center">
+      <div className="m-2">
+        <li className="h-full flex flex-col items-center border-2 rounded-xl border-accent">
+          <DialogTrigger className="hover:cursor-pointer">
+            <div className="h-55 sm:h-68">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
             </div>
 
             <div className="flex flex-col gap-2">
               <div className="text-center font-bold text-xl text-primary">{title}</div>
-              <div className="flex justify-end mr-4">${price}</div>
               <div className="m-2">{description}</div>
+              <div className="flex justify-end mr-4">${price}</div>
             </div>
-          </div>
+          </DialogTrigger>
+          <Button
+            onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
+            size="icon-sm"
+            className="hover:cursor-pointer mb-2"
+          >
+            <PlusIcon />
+          </Button>
         </li>
-      </DialogTrigger>
+      </div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
