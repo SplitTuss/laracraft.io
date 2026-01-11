@@ -1,6 +1,6 @@
 # laracraft.io
 
-This is a [Next.js](https://nextjs.org) project with [Tailwind](https://tailwindcss.com/)
+This is a [Next.js](https://nextjs.org) project with [Tailwind](https://tailwindcss.com/), using [Supabase](https://supabase.com/) as Database and Authentication
 
 ## Quickstart
 
