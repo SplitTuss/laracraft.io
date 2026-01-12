@@ -39,6 +39,8 @@ export default function CartItemComponent({ item }: CartItemProps) {
     return <div>loading...</div>;
   }
 
+  const itemTotal = product?.price * item.quantity;
+
   return (
     <div className="border-2 rounded-lg">
       <div className="flex justify-center font-bold text-lg">{product.title}</div>
@@ -86,7 +88,7 @@ export default function CartItemComponent({ item }: CartItemProps) {
             +
           </Button>
         </div>
-        <div className="mr-2">$ {product.price}</div>
+        <div className="mr-2">$ {itemTotal}</div>
       </div>
     </div>
   );
