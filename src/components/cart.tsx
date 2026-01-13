@@ -1,6 +1,5 @@
 import { ShoppingCartIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { Button } from './shadcn/Button';
 import {
   Dialog,
@@ -11,20 +10,11 @@ import {
   DialogTrigger,
 } from '@/components/shadcn/Dialog';
 import { useCart } from '@/cartContext';
-import { useAuth } from '@/client-auth/authContext';
 import CartItemComponent from './cartItem';
 
 export default function Cart() {
   const { cart } = useCart();
-  const { session, loading: authLoading } = useAuth();
   const router = useRouter();
-
-  const handleCheckout = async () => {
-    if (!authLoading && session === null) {
-      toast.info('please sign in to check out');
-      router.push('/signin');
-    }
-  };
 
   return (
     <Dialog>
@@ -45,7 +35,7 @@ export default function Cart() {
         ))}
 
         <DialogFooter>
-          <Button onClick={handleCheckout} type="submit">
+          <Button onClick={() => router.push('/checkout')} type="submit">
             checkout
           </Button>
         </DialogFooter>
