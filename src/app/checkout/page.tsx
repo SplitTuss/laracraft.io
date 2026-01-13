@@ -14,7 +14,7 @@ export default function Checkout() {
       toast.info('please sign in to check out');
       router.push('/signin');
     }
-  }, []);
+  }, [session, authLoading, router]);
 
   return <div>checkout</div>;
 }
