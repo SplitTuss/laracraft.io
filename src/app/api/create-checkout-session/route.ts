@@ -22,6 +22,9 @@ export async function POST(request: Request) {
     });
   }
 
+  const body = await request.json();
+  console.log({ body });
+
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
