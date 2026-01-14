@@ -1,7 +1,7 @@
 import { supabase } from '@/server-clients/supabase-client';
 import { stripe } from '@/server-clients/stripe-client';
 
-const SUCCESS_URL = 'https://laracraft.io/orders';
+const RETURN_URL = 'https://laracraft.io/orders';
 
 export async function POST(request: Request) {
   const accessToken = request.headers.get('Authorization');
@@ -23,7 +23,21 @@ export async function POST(request: Request) {
   }
 
   const session = await stripe.checkout.sessions.create({
-    success_url: SUCCESS_URL,
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'heart',
+          },
+          unit_amount: 1500,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    ui_mode: 'custom',
+    return_url: RETURN_URL,
   });
 
   const clientSecret = session.client_secret;

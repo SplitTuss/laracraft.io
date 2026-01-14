@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { CheckoutProvider } from '@stripe/react-stripe-js/checkout';
 import { loadStripe } from '@stripe/stripe-js';
 import { useAuth } from '@/client-auth/authContext';
+import { CheckoutForm } from '@/components/checkoutForm';
 
 const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 if (!STRIPE_PUBLISHABLE_KEY) throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not defined');
@@ -31,12 +32,13 @@ export default function Checkout() {
       },
     })
       .then((res) => res.json())
-      .then((data) => data.clientSecret);
+      .then((data) => data.clientSecret)
+      .catch(console.log);
   }, [session]);
 
   return (
     <CheckoutProvider stripe={stripeClient} options={{ clientSecret }}>
-      <div>checkout</div>
+      <CheckoutForm />
     </CheckoutProvider>
   );
 }
