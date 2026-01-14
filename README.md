@@ -1,6 +1,6 @@
 # laracraft.io
 
-This is a [Next.js](https://nextjs.org) project with [Tailwind](https://tailwindcss.com/), using [Supabase](https://supabase.com/) as Database and Authentication
+This is a [Next.js](https://nextjs.org) project with [Tailwind](https://tailwindcss.com/), using [Supabase](https://supabase.com/) as database and authentication, and [Stripe](https://stripe.com/) for payments.
 
 ## Quickstart
 
@@ -19,3 +19,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Deployment
 Code is automagically deployed via [Vercel](https://vercel.com/)
+
+## System Diagram
+<img src='images/systemDesign.png' height='auto' width='600px'>

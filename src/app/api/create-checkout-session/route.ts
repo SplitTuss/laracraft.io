@@ -1,6 +1,9 @@
 import { supabase } from '@/server-clients/supabase-client';
+import { stripe } from '@/server-clients/stripe-client';
 
-export async function GET(request: Request) {
+const SUCCESS_URL = 'https://laracraft.io/orders';
+
+export async function POST(request: Request) {
   const accessToken = request.headers.get('Authorization');
 
   if (!accessToken) {
@@ -19,22 +22,13 @@ export async function GET(request: Request) {
     });
   }
 
-  const result = await supabase
-    .from('orders')
-    .select(
-      `
-      *,
-      products:order_products (
-        id,
-        quantity,
-        created_at,
-        item:products (*)
-      )
-    `,
-    )
-    .eq('userId', authResult.data.user.id);
+  const session = await stripe.checkout.sessions.create({
+    success_url: SUCCESS_URL,
+  });
 
-  return new Response(JSON.stringify(result.data), {
+  const clientSecret = session.client_secret;
+
+  return new Response(JSON.stringify({ clientSecret }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });

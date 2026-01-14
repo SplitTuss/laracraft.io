@@ -1,4 +1,4 @@
-import { supabase } from '@/server-auth/supabase-client';
+import { supabase } from '@/server-clients/supabase-client';
 
 interface RouteContext {
   params: Promise<{
