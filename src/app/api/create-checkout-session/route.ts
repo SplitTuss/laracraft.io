@@ -4,17 +4,18 @@ import { stripe } from '@/server-clients/stripe-client';
 const RETURN_URL = 'https://laracraft.io/orders';
 
 export async function POST(request: Request) {
+  //check if authorised
   const accessToken = request.headers.get('Authorization');
-
+  //if token not there, error
   if (!accessToken) {
     return new Response('unauthorized!', {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-
+  //if authorised, get token
   const authResult = await supabase.auth.getUser(accessToken);
-
+  //if auth not okay, error
   if (authResult.error) {
     return new Response(authResult.error.message, {
       status: authResult.error.status,
@@ -22,21 +23,34 @@ export async function POST(request: Request) {
     });
   }
 
+  //get body for cart items
   const body = await request.json();
+  //find product from db for each cart item
+  const cartWithProductData = await Promise.all(
+    body.cart.map(async (item: { productId: number; quantity: number }) => {
+      //look at db and get more info back on each item
+      const product = await supabase.from('products').select().eq('id', item.productId).single();
 
+      return {
+        ...item,
+        ...product.data,
+      };
+    }),
+  );
+
+  //set line items based on cart
   const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'heart',
-          },
-          unit_amount: 1500,
+    line_items: cartWithProductData.map((item) => ({
+      quantity: item.quantity,
+      price_data: {
+        currency: 'usd',
+        unit_amount: item.price * 100,
+        product_data: {
+          name: item.title,
+          images: [item.imageUrl],
         },
-        quantity: 1,
       },
-    ],
+    })),
     customer_email: body.userEmail,
     mode: 'payment',
     ui_mode: 'custom',
