@@ -1,4 +1,9 @@
-import { useCheckout } from '@stripe/react-stripe-js/checkout';
+import {
+  PaymentElement,
+  ShippingAddressElement,
+  useCheckout,
+} from '@stripe/react-stripe-js/checkout';
+import { PayButton } from './payButton';
 
 export const CheckoutForm = () => {
   const checkoutState = useCheckout();
@@ -11,7 +16,9 @@ export const CheckoutForm = () => {
     case 'success':
       return (
         <pre>
-          {JSON.stringify(checkoutState.checkout.lineItems, null, 2)}
+          <PaymentElement />
+          <ShippingAddressElement />
+          <PayButton />
           Total: {checkoutState.checkout.total.total.amount}
         </pre>
       );

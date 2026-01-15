@@ -23,7 +23,6 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  console.log({ body });
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
@@ -38,6 +37,7 @@ export async function POST(request: Request) {
         quantity: 1,
       },
     ],
+    customer_email: body.userEmail,
     mode: 'payment',
     ui_mode: 'custom',
     return_url: RETURN_URL,
