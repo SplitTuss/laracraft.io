@@ -50,7 +50,13 @@ export async function POST(request: Request) {
           images: [item.imageUrl],
         },
       },
+      metadata: {
+        productId: item.id,
+      },
     })),
+    metadata: {
+      userId: authResult.data.user.id,
+    },
     customer_email: authResult.data.user.email,
     mode: 'payment',
     ui_mode: 'custom',
