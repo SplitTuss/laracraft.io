@@ -43,13 +43,16 @@ export async function POST(request: Request) {
     }
 
     const orderId = order.data?.['id'];
+    console.log({ orderId });
 
     const lineItems = await stripe.checkout.sessions.listLineItems(checkoutSession.id);
+    console.log(JSON.stringify(lineItems, null, 2));
 
     await Promise.all(
       lineItems.data.map(async (lineItem) => {
         const quantity = lineItem.quantity;
         const productId = lineItem.metadata?.productId;
+
         await supabase.from('order_products').insert({
           quantity,
           productId,
