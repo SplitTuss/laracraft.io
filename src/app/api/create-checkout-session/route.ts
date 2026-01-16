@@ -51,7 +51,7 @@ export async function POST(request: Request) {
         },
       },
     })),
-    customer_email: body.userEmail,
+    customer_email: authResult.data.user.email,
     mode: 'payment',
     ui_mode: 'custom',
     return_url: RETURN_URL,

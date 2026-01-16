@@ -33,10 +33,7 @@ export default function Checkout() {
         Authorization: session?.access_token ?? '',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        userEmail: session?.user.email,
-        cart,
-      }),
+      body: JSON.stringify({ cart }),
     })
       .then((res) => res.json())
       .then((data) => data.clientSecret)
