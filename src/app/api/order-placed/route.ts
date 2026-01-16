@@ -27,11 +27,12 @@ export async function POST(request: Request) {
   if (event.type === 'checkout.session.completed') {
     const checkoutSession = event.data.object;
     const userId = checkoutSession.metadata?.userId;
-    const total = checkoutSession.amount_total;
+    const total = checkoutSession.amount_total ?? 0;
+    const totalDollars = total / 100;
 
     const order = await supabase.from('orders').insert({
       userId,
-      total,
+      total: totalDollars,
     });
 
     if (order.error) {
