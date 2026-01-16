@@ -1,7 +1,31 @@
-export async function POST(request: Request) {
-  console.log({ request });
+import { stripe } from '@/server-clients/stripe-client';
 
-  return new Response(JSON.stringify(''), {
+const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_ENDPOINT_SECRET;
+
+type StripeEvent = ReturnType<typeof stripe.webhooks.constructEvent>;
+
+export async function POST(request: Request) {
+  let event: StripeEvent | undefined;
+
+  try {
+    const body = await request.json();
+    const stripeSig = request.headers.get('stripe-signature');
+
+    if (!stripeSig) throw new Error('no stripe signature is set');
+    if (!STRIPE_ENDPOINT_SECRET) throw new Error('STRIPE_ENDPOINT_SECRET is not set');
+
+    event = stripe.webhooks.constructEvent(body, stripeSig, STRIPE_ENDPOINT_SECRET);
+  } catch (error) {
+    console.error(error);
+    return new Response('bad request', {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  console.log({ event });
+
+  return new Response('success', {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
