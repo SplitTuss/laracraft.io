@@ -23,7 +23,11 @@ export async function POST(request: Request) {
     });
   }
 
-  console.log({ event });
+  if (event.type === 'checkout.session.completed') {
+    const checkoutSession = event.data.object;
+
+    console.log({ checkoutSession });
+  }
 
   return new Response('success', {
     status: 200,
