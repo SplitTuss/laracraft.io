@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   let event: StripeEvent | undefined;
 
   try {
-    const body = await request.json();
+    const body = await request.text();
     const stripeSig = request.headers.get('stripe-signature');
 
     if (!stripeSig) throw new Error('no stripe signature is set');
