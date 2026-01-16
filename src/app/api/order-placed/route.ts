@@ -1,4 +1,5 @@
 import { stripe } from '@/server-clients/stripe-client';
+import { supabase } from '@/server-clients/supabase-client';
 
 const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_ENDPOINT_SECRET;
 
@@ -25,8 +26,36 @@ export async function POST(request: Request) {
 
   if (event.type === 'checkout.session.completed') {
     const checkoutSession = event.data.object;
+    const userId = checkoutSession.metadata?.userId;
+    const total = checkoutSession.amount_total;
 
-    console.log({ checkoutSession });
+    const order = await supabase.from('orders').insert({
+      userId,
+      total,
+    });
+
+    if (order.error) {
+      return new Response('error creating order', {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const orderId = order.data?.['id'];
+
+    const lineItems = await stripe.checkout.sessions.listLineItems(checkoutSession.id);
+
+    await Promise.all(
+      lineItems.data.map(async (lineItem) => {
+        const quantity = lineItem.quantity;
+        const productId = lineItem.metadata?.productId;
+        await supabase.from('order_products').insert({
+          quantity,
+          productId,
+          orderId,
+        });
+      }),
+    );
   }
 
   return new Response('success', {
