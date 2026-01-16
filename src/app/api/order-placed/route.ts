@@ -30,10 +30,14 @@ export async function POST(request: Request) {
     const total = checkoutSession.amount_total ?? 0;
     const totalDollars = total / 100;
 
-    const order = await supabase.from('orders').insert({
-      userId,
-      total: totalDollars,
-    });
+    const order = await supabase
+      .from('orders')
+      .insert({
+        userId,
+        total: totalDollars,
+      })
+      .select()
+      .single();
 
     if (order.error) {
       return new Response('error creating order', {
@@ -42,16 +46,14 @@ export async function POST(request: Request) {
       });
     }
 
-    const orderId = order.data?.['id'];
-    console.log({ orderId });
+    const orderId = order.data?.id;
 
     const lineItems = await stripe.checkout.sessions.listLineItems(checkoutSession.id);
-    console.log(JSON.stringify(lineItems, null, 2));
 
     await Promise.all(
       lineItems.data.map(async (lineItem) => {
         const quantity = lineItem.quantity;
-        const productId = lineItem.metadata?.productId;
+        const productId = Number(lineItem.metadata?.productId);
 
         await supabase.from('order_products').insert({
           quantity,
