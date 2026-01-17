@@ -1,7 +1,7 @@
 import { supabase } from '@/server-clients/supabase-client';
 import { stripe } from '@/server-clients/stripe-client';
 
-const RETURN_URL = 'https://laracraft.io/orders';
+const RETURN_URL = 'https://laracraft.io/orders?refresh=true';
 
 export async function POST(request: Request) {
   //check if authorised

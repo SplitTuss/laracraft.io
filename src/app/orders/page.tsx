@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
@@ -33,6 +33,9 @@ type OrderData = {
 };
 
 export default function Orders() {
+  const searchParams = useSearchParams();
+  const refresh = searchParams.get('refresh');
+
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +43,6 @@ export default function Orders() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('order page', { session });
     if (!authLoading && session === null) {
       router.push('/signin');
     }
@@ -64,7 +66,10 @@ export default function Orders() {
     if (authLoading || !session) return;
 
     handleLoadOrders();
-  }, [authLoading, session, handleLoadOrders]);
+    if (refresh) {
+      setTimeout(handleLoadOrders, 3000);
+    }
+  }, [authLoading, session, refresh, handleLoadOrders]);
 
   if (authLoading || loading) {
     return <div>loading...</div>;
