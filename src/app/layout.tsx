@@ -6,6 +6,8 @@ import { CartContextProvider } from '@/cartContext';
 import './globals.css';
 import { Toaster } from '@/components/shadcn/Toast';
 
+export const dynamic = 'force-dynamic';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
