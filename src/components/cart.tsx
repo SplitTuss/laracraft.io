@@ -36,6 +36,17 @@ export default function Cart() {
     handleLoadProducts();
   }, []);
 
+  let cartTotal = 0;
+
+  cart.forEach((item) => {
+    const product = productList.find((product) => {
+      return item.productId === product.id;
+    });
+    if (!product) return;
+
+    cartTotal += item.quantity * product.price;
+  });
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -60,7 +71,7 @@ export default function Cart() {
         })}
 
         <DialogFooter>
-          <div>total ${}</div>
+          <div>total $ {cartTotal}</div>
           <Button onClick={() => router.push('/checkout')} type="submit">
             checkout
           </Button>
