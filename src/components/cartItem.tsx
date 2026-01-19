@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Button } from '@/components/shadcn/Button';
 import { useCart, CartItem } from '@/cartContext';
 import { ProductData } from '@/app/page';
@@ -11,42 +10,20 @@ import {
 } from '@/components/shadcn/Select';
 
 interface CartItemProps {
-  item: CartItem;
+  item: CartItem & ProductData;
 }
 
 export default function CartItemComponent({ item }: CartItemProps) {
   const { updateCart } = useCart();
 
-  const [product, setProduct] = useState<ProductData>();
-
-  const handleLoadProduct = async () => {
-    const result = await fetch(`/api/products/${item.productId}`);
-
-    if (!result.ok) {
-      console.log('product not ok');
-      return;
-    }
-
-    const data = await result.json();
-    setProduct(data);
-  };
-
-  useEffect(() => {
-    handleLoadProduct();
-  }, []);
-
-  if (!product) {
-    return <div>loading...</div>;
-  }
-
-  const itemTotal = product?.price * item.quantity;
+  const itemTotal = item.price * item.quantity;
 
   return (
     <div className="border-2 rounded-lg">
-      <div className="flex justify-center font-bold text-lg">{product.title}</div>
+      <div className="flex justify-center font-bold text-lg">{item.title}</div>
       <div className="flex flex-row items-center justify-between m-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={product.imageUrl} alt={product.title} height="auto" width={50} />
+        <img src={item.imageUrl} alt={item.title} height="auto" width={50} />
         <div className="flex flex-row justify-center items-center gap-2">
           <Button
             size="icon-sm"
@@ -54,6 +31,7 @@ export default function CartItemComponent({ item }: CartItemProps) {
           >
             -
           </Button>
+
           <Select
             onValueChange={(newValue) => {
               updateCart({ productId: item.productId, quantity: Number(newValue) });
@@ -70,6 +48,7 @@ export default function CartItemComponent({ item }: CartItemProps) {
               ))}
             </SelectContent>
           </Select>
+
           <Button
             size="icon-sm"
             onClick={() => updateCart({ productId: item.productId, quantity: item.quantity + 1 })}
