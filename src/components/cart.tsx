@@ -70,9 +70,13 @@ export default function Cart() {
           return <CartItemComponent key={item.productId} item={{ ...item, ...foundProduct }} />;
         })}
 
-        <DialogFooter>
-          <div>total $ {cartTotal}</div>
-          <Button onClick={() => router.push('/checkout')} type="submit">
+        <DialogFooter className="flex-col gap-2">
+          <div className="text-center">total: $ {cartTotal}</div>
+          <Button
+            onClick={() => router.push('/checkout')}
+            type="submit"
+            className="hover:cursor-pointer"
+          >
             checkout
           </Button>
         </DialogFooter>

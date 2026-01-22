@@ -88,14 +88,13 @@ export default function Orders() {
       <Header />
       <div className="flex flex-col items-center text-2xl m-4">
         <h1 className="text-center text-2xl text-primary">orders for {session?.user.email}</h1>
-        <br />
-        <ul className="m-2 sm:text-2xl text-sm">
+        <ul className="m-2 sm:text-2xl text-sm flex flex-col mt-6">
           {orders.map((order) => (
             <Dialog key={order.id}>
               <DialogTrigger>
                 <li
                   key={order.id}
-                  className="flex justify-center rounded-xl border-2 border-accent p-2"
+                  className="rounded-xl border-2 border-accent p-4 m-4 hover:cursor-pointer"
                 >
                   <div className="flex flex-row gap-6">
                     <div>date: {new Date(order.created_at).toLocaleDateString()}</div>
@@ -117,7 +116,7 @@ export default function Orders() {
                 <div>
                   items ordered:
                   {order.products.map((product) => (
-                    <div key={product.id} className="flex flex-row gap-4 mb-2">
+                    <div key={product.id} className="flex flex-row gap-4 mt-2 mb-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={product.item.imageUrl}
@@ -125,6 +124,7 @@ export default function Orders() {
                         height="auto"
                         width={40}
                       />
+
                       <div>{product.item.title}</div>
                       <div>${product.item.price}</div>
                       <div>x{product.quantity}</div>

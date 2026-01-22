@@ -25,8 +25,8 @@ export const PayButton = () => {
   };
 
   return (
-    <div>
-      <Button disabled={loading} onClick={handleClick}>
+    <div className="m-4 flex justify-center">
+      <Button disabled={loading} onClick={handleClick} size="lg">
         pay
       </Button>
       {error && <div>{error}</div>}

@@ -15,12 +15,16 @@ export const CheckoutForm = () => {
       return <div>Error: {checkoutState.error.message}</div>;
     case 'success':
       return (
-        <pre>
+        <div className="m-4">
           <PaymentElement />
-          <ShippingAddressElement />
+          <div className="mt-2">
+            <ShippingAddressElement />
+          </div>
+          <div className="flex justify-center mt-2">
+            Total: {checkoutState.checkout.total.total.amount}
+          </div>
           <PayButton />
-          Total: {checkoutState.checkout.total.total.amount}
-        </pre>
+        </div>
       );
   }
 };
