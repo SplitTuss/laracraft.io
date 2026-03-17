@@ -39,11 +39,12 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="flex justify-center mt-4 p-4">
+    <div className="flex justify-center mt-35 sm:mt-50 p-4">
       <form className="max-w-md" onSubmit={handleSubmit}>
-        <h1 className="text-2xl text-primary flex justify-center">change password</h1>
-        <div className="flex flex-col py-4">
-          <h2 className="flex text-center">change password for {session?.user?.email}!</h2>
+        <div className="flex flex-col items-center py-4">
+          <h2 className="m-4 text-2xl text-primary flex text-center">
+            change password for {session?.user?.email}!
+          </h2>
           <Input
             placeholder="new password"
             className="bg-accent mt-2 p-2 mb-4"
@@ -53,7 +54,7 @@ export default function ChangePassword() {
           {error && (
             <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
           )}
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} className="mt-4">
             change password
           </Button>
         </div>
