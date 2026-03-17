@@ -44,13 +44,17 @@ export default function ChangeEmail() {
   };
 
   return (
-    <div className="flex justify-center text-2xl mt-4 p-4">
+    <div className="flex justify-center mt-35 sm:mt-50 p-4 ">
       <form className="max-w-md" onSubmit={handleSubmit}>
-        <h1 className="text-2xl text-primary flex justify-center">change email</h1>
-        <div className="flex flex-col py-4">
-          <h2 className="flex text-center">change email for {session?.user?.email}!</h2>
+        <div className="flex flex-col items-center py-4">
+          <h2 className="m-4 text-2xl text-primary flex text-center">
+            Change E-Mail for {session?.user?.email}
+          </h2>
+          <div className="text-accent-foreground/60 mb-4">
+            We will send you a verification link to the new e-mail address.
+          </div>
           <Input
-            placeholder="new email"
+            placeholder="new e-mail address"
             className="bg-accent p-2 mb-4"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -58,7 +62,7 @@ export default function ChangeEmail() {
           {error && (
             <div className="text-sm text-red-500 flex flex-wrap justify-center mb-4">{error}</div>
           )}
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} className="mt-4">
             change email
           </Button>
         </div>
