@@ -87,7 +87,9 @@ export default function Orders() {
     <>
       <Header />
       <div className="flex flex-col items-center text-2xl m-4">
-        <h1 className="text-center text-2xl text-primary">orders for {session?.user.email}</h1>
+        <h1 className="text-center text-2xl text-primary">
+          orders placed by {session?.user.email}
+        </h1>
         <ul className="m-2 sm:text-2xl text-sm flex flex-col mt-6">
           {orders.map((order) => (
             <Dialog key={order.id}>
@@ -97,8 +99,8 @@ export default function Orders() {
                   className="rounded-xl border-2 border-accent p-4 m-4 hover:cursor-pointer"
                 >
                   <div className="flex flex-row gap-6">
-                    <div>date: {new Date(order.created_at).toLocaleDateString()}</div>
                     <div>order number: #{order.id}</div>
+                    <div>order placed: {new Date(order.created_at).toLocaleDateString()}</div>
                     <div>total: ${order.total}</div>
                     <div>items: {getTotalItems(order)}</div>
                   </div>
