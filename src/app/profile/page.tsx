@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { BookTextIcon, MailIcon, KeyIcon } from 'lucide-react';
 import { Button } from '@/components/shadcn/Button';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
@@ -25,35 +26,34 @@ export default function ProfilePage() {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center text-2xl mt-4">
-        <h1 className="text-2xl text-primary">Profile page</h1>
-        <br />
-        <h2>Welcome, {session?.user?.email}!</h2>
-        <br />
-        <div className="flex flex-row gap-4">
-          <Link href="/orders" className="underline">
-            go to my orders
+      <div className="flex flex-col items-center gap-4 sm:gap-15">
+        <h2 className="mt-10 sm:mt-15 text-2xl">Welcome, {session?.user?.email}!</h2>
+        <div className="flex flex-col items-center gap-8 mt-5 p-8 bg-accent-foreground/10 border-accent-foreground/10 border-2 rounded-xl">
+          <Link
+            href="/orders"
+            className="flex flex-row items-center mb-8 p-2 text-xl hover:text-primary bg-accent-foreground/5 border-accent-foreground/10 border rounded-xl underline"
+          >
+            <BookTextIcon size={18} className="mt-1 mr-2" />
+            my orders
           </Link>
-          <br />
-          <Link href="/" className="underline">
-            go home
+          <Link
+            href="/changeEmail"
+            className="flex flex-row items-center p-2 text-xl hover:text-primary bg-accent-foreground/5 border-accent-foreground/10 border rounded-xl underline"
+          >
+            <MailIcon size={18} className="mt-1 mr-2" />
+            change email
           </Link>
-        </div>
-        <br />
-        <div className="flex flex-row gap-2">
-          <Button>
-            <Link href="/changeEmail" className="underline">
-              change email
-            </Link>
+          <Link
+            href="/changePassword"
+            className="flex flex-row items-center p-2 text-xl hover:text-primary bg-accent-foreground/5 border-accent-foreground/10 border rounded-xl  underline"
+          >
+            <KeyIcon size={18} className="mt-1 mr-2" />
+            change password
+          </Link>
+          <Button onClick={handleLogout} variant="outline">
+            logout
           </Button>
-          <Button>
-            <Link href="/changePassword" className="underline">
-              change password
-            </Link>
-          </Button>
-          <Button onClick={handleLogout}>logout</Button>
         </div>
-        <br />
       </div>
     </>
   );
