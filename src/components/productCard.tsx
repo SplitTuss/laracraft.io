@@ -32,23 +32,28 @@ export default function ProductCard({
   return (
     <Dialog>
       <div className="m-2">
-        <li className="h-full flex flex-col items-center border-2 rounded-xl border-accent">
+        <li className="h-full flex flex-col items-center border-2 rounded-xl border-accent bg-accent/40">
           <DialogTrigger className="hover:cursor-pointer">
-            <div className="h-55 sm:h-68 flex items-center justify-center">
+            <div className="h-55 sm:h-68 flex items-center justify-center m-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
+              <img
+                src={imageUrl}
+                alt={title}
+                height="auto"
+                width={200}
+                className="p-2 rounded-2xl"
+              />
             </div>
 
             <div className="flex flex-col gap-2">
               <div className="font-bold text-xl text-primary">{title}</div>
-              <div className="m-2">{description}</div>
               <div className="flex justify-end mr-4">${price}</div>
             </div>
           </DialogTrigger>
           <Button
             onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}
             size="icon-sm"
-            className="hover:cursor-pointer mb-2"
+            className="hover:cursor-pointer mb-6"
           >
             <PlusIcon />
           </Button>
@@ -62,10 +67,8 @@ export default function ProductCard({
         </DialogHeader>
         <div className="flex flex-col items-center w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imageUrl} alt={title} height="auto" width={200} className="p-2" />
-          <DialogDescription>
-            <div className="text-center m-4">{description}</div>
-          </DialogDescription>
+          <img src={imageUrl} alt={title} height="auto" width={300} className="p-2 rounded-2xl" />
+          <DialogDescription className="m-6">{description}</DialogDescription>
           <div className="flex flex-row w-full relative justify-center mt-auto">
             <Button
               onClick={() => updateCart({ productId: productId, quantity: existingQuantity + 1 })}

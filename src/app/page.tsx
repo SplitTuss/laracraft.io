@@ -43,18 +43,20 @@ export default function Home() {
       <div className="m-4">
         <SearchBar onSearchChange={setSearchInput} />
       </div>
-      <ul className="grid sm:grid-cols-5 grid-cols-2 m-2">
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            productId={product.id}
-            imageUrl={product.imageUrl}
-            title={product.title}
-            price={product.price}
-            description={product.description}
-          />
-        ))}
-      </ul>
+      <div className="flex justify-center">
+        <ul className="grid sm:grid-cols-3 grid-cols-2 m-2">
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              productId={product.id}
+              imageUrl={product.imageUrl}
+              title={product.title}
+              price={product.price}
+              description={product.description}
+            />
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
