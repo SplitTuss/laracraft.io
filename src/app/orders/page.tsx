@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/client-auth/authContext';
 import Header from '@/components/header';
+import { Spinner } from '@/components/shadcn/Spinner';
 import {
   Dialog,
   DialogContent,
@@ -72,7 +73,12 @@ export default function Orders() {
   }, [authLoading, session, refresh, handleLoadOrders]);
 
   if (authLoading || loading) {
-    return <div>loading...</div>;
+    return (
+      <div className="flex flex-row gap-4 items-center justify-center mt-80 sm:mt-100">
+        <Spinner />
+        Loading...
+      </div>
+    );
   }
 
   const getTotalItems = (order: OrderData) => {
