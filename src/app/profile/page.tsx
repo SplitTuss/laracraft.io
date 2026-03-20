@@ -27,7 +27,7 @@ export default function ProfilePage() {
     <>
       <Header />
       <div className="flex flex-col items-center gap-4 sm:gap-15">
-        <h2 className="mt-10 sm:mt-15 text-2xl">Welcome, {session?.user?.email}!</h2>
+        <h2 className="mt-10 sm:mt-15 text-2xl">{session?.user?.email}`s profile</h2>
         <div className="flex flex-col items-center gap-8 mt-5 p-8 bg-accent-foreground/10 border-accent-foreground/10 border-2 rounded-xl">
           <Link
             href="/orders"
