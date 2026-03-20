@@ -17,11 +17,11 @@ export default function DiamondArt() {
   const [searchInput, setSearchInput] = useState('');
   const [products, setProducts] = useState<Array<ProductData>>([]);
 
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchInput.toLowerCase()),
+  const filteredDiamondArt = products.filter((diamondArt) =>
+    diamondArt.title.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
-  const handleLoadProducts = async () => {
+  const handleLoadDiamondArt = async () => {
     const result = await fetch('/api/diamondArt');
 
     if (!result.ok) {
@@ -34,7 +34,7 @@ export default function DiamondArt() {
   };
 
   useEffect(() => {
-    handleLoadProducts();
+    handleLoadDiamondArt();
   }, []);
 
   return (
@@ -43,16 +43,18 @@ export default function DiamondArt() {
       <div className="m-4">
         <SearchBar onSearchChange={setSearchInput} />
       </div>
+      <div className="flex justify-center text-primary/70">
+        These items are not for sale. I am only showcasing some of my finished projects.
+      </div>
       <div className="flex justify-center">
-        <ul className="grid sm:grid-cols-3 grid-cols-2 m-2">
-          {filteredProducts.map((product) => (
+        <ul className="m-2">
+          {filteredDiamondArt.map((diamondArt) => (
             <DiamondArtComponent
-              key={product.id}
-              productId={product.id}
-              imageUrl={product.imageUrl}
-              title={product.title}
-              description={product.description}
-              notes={product.notes}
+              key={diamondArt.id}
+              imageUrl={diamondArt.imageUrl}
+              title={diamondArt.title}
+              description={diamondArt.description}
+              notes={diamondArt.notes}
             />
           ))}
         </ul>
