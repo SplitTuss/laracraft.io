@@ -1,6 +1,6 @@
 import { Button } from '@/components/shadcn/Button';
 import { useCart, CartItem } from '@/cartContext';
-import { ProductData } from '@/app/page';
+import { ProductData } from '@/app/crochet/page';
 import {
   Select,
   SelectContent,
@@ -20,13 +20,20 @@ export default function CartItemComponent({ item }: CartItemProps) {
 
   return (
     <div className="border-2 rounded-lg">
-      <div className="flex justify-center font-bold text-lg">{item.title}</div>
-      <div className="flex flex-row items-center justify-between m-2">
+      <div className="flex justify-center font-bold text-lg mt-2">{item.title}</div>
+      <div className="grid grid-cols-3 items-center m-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.imageUrl} alt={item.title} height="auto" width={50} />
+        <img
+          src={item.imageUrl}
+          alt={item.title}
+          height="auto"
+          width={50}
+          className="m-2 rounded-sm"
+        />
         <div className="flex flex-row justify-center items-center gap-2">
           <Button
             size="icon-sm"
+            title="remove one"
             onClick={() => updateCart({ productId: item.productId, quantity: item.quantity - 1 })}
           >
             -
@@ -51,12 +58,13 @@ export default function CartItemComponent({ item }: CartItemProps) {
 
           <Button
             size="icon-sm"
+            title="add more"
             onClick={() => updateCart({ productId: item.productId, quantity: item.quantity + 1 })}
           >
             +
           </Button>
         </div>
-        <div className="mr-2">$ {itemTotal}</div>
+        <div className="flex justify-end mr-6">$ {itemTotal}</div>
       </div>
     </div>
   );

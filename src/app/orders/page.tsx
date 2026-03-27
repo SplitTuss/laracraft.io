@@ -93,22 +93,22 @@ export default function Orders() {
     <>
       <Header />
       <div className="flex flex-col items-center text-2xl m-4">
-        <h1 className="text-center text-2xl text-primary">
+        <div className="text-center text-3xl text-primary">
           orders placed by {session?.user.email}
-        </h1>
-        <ul className="m-2 sm:text-2xl text-sm flex flex-col mt-6">
+        </div>
+        <ul className="m-2 sm:text-xl text-lg flex sm:w-2/3 bg-accent/20 rounded-xl flex-col p-2 mt-6">
           {orders.map((order) => (
             <Dialog key={order.id}>
-              <DialogTrigger>
+              <DialogTrigger className="flex justify-center">
                 <li
                   key={order.id}
-                  className="rounded-xl border-2 border-accent p-4 m-4 hover:cursor-pointer"
+                  className="rounded-xl border-2 border-accent bg-accent/40 w-80 sm:w-2/3 p-4 m-2 hover:cursor-pointer"
                 >
-                  <div className="flex flex-row gap-6">
+                  <div className="flex flex-col items-start m-4 gap-6">
                     <div>order number: #{order.id}</div>
                     <div>order placed: {new Date(order.created_at).toLocaleDateString()}</div>
-                    <div>total: ${order.total}</div>
                     <div>items: {getTotalItems(order)}</div>
+                    <div>total: ${order.total}</div>
                   </div>
                 </li>
               </DialogTrigger>
@@ -124,18 +124,18 @@ export default function Orders() {
                 <div>
                   items ordered:
                   {order.products.map((product) => (
-                    <div key={product.id} className="flex flex-row gap-4 mt-2 mb-2">
+                    <div key={product.id} className="flex flex-row items-center gap-4 mt-2 mb-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={product.item.imageUrl}
                         alt={product.item.title}
                         height="auto"
-                        width={40}
+                        width={60}
                       />
 
                       <div>{product.item.title}</div>
-                      <div>${product.item.price}</div>
                       <div>x{product.quantity}</div>
+                      <div>${product.item.price}</div>
                     </div>
                   ))}
                 </div>

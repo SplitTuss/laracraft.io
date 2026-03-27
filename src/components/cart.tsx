@@ -12,7 +12,7 @@ import {
 } from '@/components/shadcn/Dialog';
 import { useCart } from '@/cartContext';
 import CartItemComponent from './cartItem';
-import { ProductData } from '@/app/page';
+import { ProductData } from '@/app/crochet/page';
 
 export default function Cart() {
   const { cart } = useCart();
